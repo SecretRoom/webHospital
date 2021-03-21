@@ -1,0 +1,202 @@
+@access_token =eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjI3NjU2NDcsIm5iZiI6MTU2Mjc2NTY0NywianRpIjoiMTEyYmViYWUtMjc5OS00NmJiLWEyODEtZTcwYzg1NTdmYmYwIiwiZXhwIjoxNTYyNzY2NTQ3LCJpZGVudGl0eSI6Ilx1MDQyMVx1MDQ0Mlx1MDQzMFx1MDQ0MFx1MDQzNlx1MDQzNVx1MDQ0Nlx1MDQzYVx1MDQzMFx1MDQ0ZiIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.gkyz6nGKT05kOcsYLW5fykZ6n7-VFTsHvHd_r95X094
+@refresh_token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjE0NDgwNDMsIm5iZiI6MTU2MTQ0ODA0MywianRpIjoiMGFmODk4M2ItNjZlYS00ZDdjLTg1Y2YtMmZlM2E4Y2M4YTRlIiwiZXhwIjoxNTY0MDQwMDQzLCJpZGVudGl0eSI6Ilx1MDQyMVx1MDQ0Mlx1MDQzMFx1MDQ0MFx1MDQzNlx1MDQzNVx1MDQ0Nlx1MDQzYVx1MDQzMFx1MDQ0ZiIsInR5cGUiOiJyZWZyZXNoIn0.O7P7c9J4n0HT6rBbpnhedISjZ3fPwzI4ChpHB1oALcs
+###
+# POST http://192.168.0.40:5000/auth/login HTTP/1.1
+#Авторизация - получение токенов
+POST http://localhost:5000/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Старжецкая",
+    "password": "1"  
+}
+###
+# POST http://192.168.0.40:5000/auth/login HTTP/1.1
+#Обновление токена
+POST http://localhost:5000/auth/refresh HTTP/1.1
+Authorization: Bearer {{refresh_token}}
+Content-Type: application/json
+
+###
+# POST http://192.168.0.40:5000/auth/login HTTP/1.1
+#
+POST http://localhost:5000/uslugi/selectWithOffset HTTP/1.1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "offset":"50",
+    "sotr":"beaf410a-170d-4617-a0ef-15b6f38ad864"
+}
+
+###
+# POST http://192.168.0.40:5000/auth/login HTTP/1.1
+#
+POST http://localhost:5000/uslugi/updateSlsotrobsusl HTTP/1.1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "cdsotrusl":"1a88cd20-1d77-446c-a654-dd2d60beb0b3", 
+    "cduserizm":"ecf14234-6161-4dec-9e24-6b8289fd7e6f",
+    "kolvo":"1",
+    "ord":"1"
+}
+###
+# POST http://192.168.0.40:5000/auth/login HTTP/1.1
+#
+POST http://localhost:5000/uslugi/deleteFromSlsotrobsusl HTTP/1.1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "cdsotrusl":"1a88cd20-1d77-446c-a654-dd2d60beb0b3"
+}
+###
+# POST http://192.168.0.40:5000/auth/login HTTP/1.1
+#
+POST http://localhost:5000/uslugi/insertIntoSlsotrobsusl HTTP/1.1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "cdobsusl":"db6db894-d90d-470e-aedd-0ef43f48d0e5", 
+    "cdlpuparent":"beaf410a-170d-4617-a0ef-15b6f38ad864", 
+    "cdsotr":"18d6b907-fa96-49ff-b645-abed337f3118",
+    "change_date":"2019-04-29 17:23:12.98911",
+    "cduser":"ecf14234-6161-4dec-9e24-6b8289fd7e6f", 
+    "cduserizm":"ecf14234-6161-4dec-9e24-6b8289fd7e6f",
+    "kolvo":"1",
+    "ord":"1"
+}
+
+
+###
+# POST http://192.168.0.40:5000/auth/login HTTP/1.1
+#
+POST http://localhost:5000/uslugi/search HTTP/1.1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "cdobsusl":"f53c5e94-f886-45d0-802d-4e46194592ac"
+}
+###
+# POST http://192.168.0.40:5000/auth/login HTTP/1.1
+#
+POST http://localhost:5000/uslugi/update HTTP/1.1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+"nmobsusl":"Исследование мочи: определение количества, цвета, прозрачности, наличия осадка, относительной плотности, реакции (рH)",
+"cdobsusl":"f53c5e94-f886-45d0-802d-4e46194592ac"
+}
+###
+# POST http://192.168.0.40:5000/auth/login HTTP/1.1
+#
+POST http://localhost:5000/uslugi/delete HTTP/1.1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "cdobsusl":"f53c5e94-f886-45d0-802d-4e46194592ac"
+}
+
+
+###
+# POST http://192.168.0.40:5000/auth/login HTTP/1.1
+#
+POST http://localhost:5000/uslugi/insert HTTP/1.1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "cdobsuslparent":"null",
+    "cdobsuslchild":"null",
+    "cdlpuparent":"601ab6aa-a1d9-434d-83e7-dcac3b3bd078",
+    "nmobsusl":"Исследование мочи: обнаружение глюкозы экспресс-тестом",
+    "nmobsuslshort":"''",
+    "prusl":"2",
+    "prusl_egisz":"0",
+    "cdobsusl_u":"410010",
+    "cdobsusl_p":"410010",
+    "cdobsusl_f":"null",
+    "nmeidzm":"null",
+    "cdgrrusl":"null",
+    "cdtax":"8cc8b57b-f6cc-45ca-b6d8-94cc87a3b9ab",
+    "razdel":"null",
+    "cdprrasch":"471a4b67-be9d-47f4-b79c-b489d97747f5",
+    "zadach":"0",
+    "ordr":"null",
+    "act_type":"0",
+    "datopen":"2000-01-01 00:00:00",
+    "datclose":"2999-12-31 00:00:00",
+    "cduser":"7d6dd80b-ce63-47c0-af51-2bc35bfd59a9",
+    "cduserizm":"7d6dd80b-ce63-47c0-af51-2bc35bfd59a9",
+    "change_date":"2019-01-17 11:22:35.722817",
+    "ntime":"0"
+}
+###
+# POST http://192.168.0.40:5000/auth/login HTTP/1.1
+#
+POST http://localhost:5000/uslugi/SelectSotrUsl HTTP/1.1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+
+###
+#Список записанных на прием
+POST appointment/PriemList/15.04.2019 HTTP/1.1
+
+{
+     "cdsotr": "",
+      "date": ""
+}
+
+
+###
+#получить список осмотров по id пациента
+POST http://localhost:5000/examination/listjson  HTTP/1.1
+Authorization: Bearer {{access_token}}
+
+{ 
+    "cdpac": "70895A8A-DA07-40E9-9BE0-F9C06C463424"
+}
+
+
+###
+#получить список параметров осмотра
+GET http://localhost:5000/examination/json/87bc969a-d9e5-430f-a7f9-61389e51ee15  HTTP/1.1
+Authorization: Bearer {{access_token}}
+
+###
+#сохранить список параметров осмотра
+POST http://localhost:5000/examination/json/5c42cef4-5c9e-4036-9a38-73bc8bd644a3  HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MiLCJleHAiOjE1NTU5MzUxNTEsImlkZW50aXR5IjoiXHUwNDIxXHUwNDQyXHUwNDMwXHUwNDQwXHUwNDM2XHUwNDM1XHUwNDQ2XHUwNDNhXHUwNDMwXHUwNDRmIiwiaWF0IjoxNTU1OTM0MjUxLCJuYmYiOjE1NTU5MzQyNTEsImp0aSI6IjEwMjc0MjUwLTY3MjEtNGYzOC1iN2Y0LTc5MDE1ZmE3NjI4MyJ9.acXQg2QR5dyWkqP8QQKNGdmeRIhoWzKomqklaep4fzk
+
+{
+    
+}
+
+###
+#
+POST http://localhost:5000/examination/jsonparam/ HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiIzYzBjNWFjMS0wODc2LTQ1NWQtYjlhNS1hODEzZjJmMjkyODciLCJpYXQiOjE1NTU5MzYwNjgsIm5iZiI6MTU1NTkzNjA2OCwiaWRlbnRpdHkiOiJcdTA0MjFcdTA0NDJcdTA0MzBcdTA0NDBcdTA0MzZcdTA0MzVcdTA0NDZcdTA0M2FcdTA0MzBcdTA0NGYiLCJleHAiOjE1NTU5MzY5Njh9.fyP9u7MLVB3ZRSwVDkmDqYYkeBk2VGLcRpExVDe41H4
+Content-Type: application/json
+
+{
+    "cdent": "4d740c31-1422-4615-9cb1-cf43ecff1d61",
+    "сdpar": "b3b362da-a14c-456f-a679-5fa74dbfa1c2",
+    "value": "test"
+}
+
+###
+POST http://192.168.0.40:3010/processfile HTTP/1.1
+Content-Type: application/json
+
+{
+    "token": "UafsldjkHJ3hfafZah3984",
+    "picture": ""
+}
+
