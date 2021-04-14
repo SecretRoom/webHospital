@@ -1,6 +1,0 @@
-src/**/*.test.js
-*.test.js
-.test.js
-/.git
-/.vscode
-node_modules
