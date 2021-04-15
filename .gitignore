@@ -13,7 +13,7 @@ venv
 TEMP
 #client
 .vscode
-package-lock.json
+
 /remote-profile
 /node_modules
 start_remote-debugging-chrome.sh
@@ -45,6 +45,5 @@ yarn-error.log*
 *.whl
 .whl
 /app/client/node_modules/
-*.json
 /.mypy_cache/
 /venv1/
