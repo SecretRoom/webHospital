@@ -1,0 +1,6 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+@inputFont: 'Roboto', sans-serif;
+@placeholderColor: #777;

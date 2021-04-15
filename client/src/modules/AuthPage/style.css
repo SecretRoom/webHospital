@@ -1,0 +1,88 @@
+.auth {
+  margin: 7% auto;
+}
+
+.auth-preloader {
+  margin: 20% auto;
+  width: 25%;
+}
+
+.btn_in {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#login_form {
+  padding-top: 40px;
+  background: white;
+  width: 600px;
+  height: 400px;
+  display: -ms-grid;
+  display: grid;
+  border-radius: 4px;
+  -ms-grid-rows: 50px (107px)[2] 42px;
+      grid-template-rows: 50px repeat(2, 107px) 42px;
+  -ms-grid-columns: 400px;
+      grid-template-columns: 400px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#login_form .error.field .label {
+  font-weight: normal !important;
+}
+
+#login_form input {
+  height: auto !important;
+}
+
+.label_title {
+  color: black;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin-bottom: 0px !important;
+}
+
+.label_title h1 {
+  font-size: 36px;
+}
+
+.password {
+  margin-top: 10px;
+}
+
+.field {
+  margin: 0 !important;
+  padding: 5px;
+}
+
+.field:nth-child(2) {
+  -ms-flex-item-align: end;
+      -ms-grid-row-align: end;
+      align-self: end;
+  padding: 0px;
+}
+
+.field:nth-child(3) {
+  -ms-flex-item-align: baseline;
+      align-self: baseline;
+  padding: 0px;
+}
+
+.field:last-child {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=style.css.map */

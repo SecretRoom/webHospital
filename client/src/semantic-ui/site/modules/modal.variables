@@ -1,0 +1,12 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+@headerPadding: 15px 10px;
+@actionPadding: 10px 20px;
+@headerBackground: #34495e;
+@headerColor: #ffffff;
+@borderRadius: 8px;
+@headerPadding: 10px;
+@headerFontSize: 20px;
+@largeHeaderSize: 20px;

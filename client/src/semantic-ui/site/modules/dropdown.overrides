@@ -1,0 +1,44 @@
+/*******************************
+        User Overrides
+*******************************/
+
+.ui.selection.dropdown {
+  padding: 6px;
+  height: 30px;
+  min-height: auto;
+}
+
+.ui.dropdown:not(.button) > .default.text,
+.ui.dropdown:not(.button) > .text {
+  font-size: 14px;
+}
+
+.ui.disabled.dropdown {
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #dadada;
+}
+
+.ui.disabled.dropdown > .dropdown.icon {
+  display: none;
+}
+
+.ui.search.dropdown > .text {
+    height: 20px;
+    overflow: hidden;
+    line-height: 18px;
+    width: 95%;
+}
+
+/*******************************
+.ui.dropdown:not(.button) > .default.text, .ui.dropdown:not(.button) > .text {
+  font-size: 14px;
+  overflow: hidden;
+  height: 20px;
+  width: 90%;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  word-wrap: normal;
+  line-height: 18px;
+}
+*******************************/

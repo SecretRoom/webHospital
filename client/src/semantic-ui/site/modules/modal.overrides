@@ -1,0 +1,10 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+.ui.modal .description {
+  padding: 10px 10px;
+}
+.ui.modal {
+  overflow: visible;
+}

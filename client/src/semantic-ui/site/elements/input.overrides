@@ -1,0 +1,17 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+.ui.input > input {
+  height: 30px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+ui.disabled.input,
+.ui.input:not(.disabled) input[disabled] {
+  color: rgba(0,0,0,.8);
+  border: none;
+  border-radius: 0px;
+  border-bottom: 1px solid #dadada;
+}

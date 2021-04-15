@@ -1,0 +1,11 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+@selectionVerticalPadding: 7px;
+@selectionItemPadding: 5px;
+@defaultTextColor: #777;
+@disabledOpacity: 0.5;
+@selectionWidescreenMaxMenuHeight: 11em;
+@relativeMedium: 14px;
+@itemFontSize: 14px;
