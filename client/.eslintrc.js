@@ -1,11 +1,11 @@
 module.exports = {
   env: {
     browser: true,
-    commonjs: true,
-    es2021: true,
   },
   extends: [
-    'airbnb-base',
+    'airbnb',
+    // 'prettier',
+    // 'prettier/react',
   ],
   globals: {
     Atomics: 'readonly',
@@ -28,6 +28,7 @@ module.exports = {
         extensions: ['.js', '.jsx'],
       },
     ],
+    'no-multiple-empty-lines': 'off',
     'react/prop-types': ['warn'],
     'react/require-default-props': ['warn'],
     'react/destructuring-assignment': 0,
@@ -61,6 +62,7 @@ module.exports = {
     'no-param-reassign': 'off', // Это - не наш стиль?
     radix: 'off', // parseInt, parseFloat и radix выключены. Мне это не нравится.
     semi: 'off',
+    'react/jsx-props-no-spreading': 'off',
     // 'react/require-default-props': 'off', // airbnb использует уведомление об ошибке
     // 'react/forbid-prop-types': 'off', // airbnb использует уведомление об ошибке
     'react/no-access-state-in-setstate': 'off',
@@ -146,4 +148,5 @@ module.exports = {
       },
     },
   ],
-};
+}
+

@@ -1,38 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router'
 import * as serviceWorker from './serviceWorker';
 import store, { history } from './store/configureStore';
 // import submitOnGlobalEvent from './services/Events/Global/eventSubscriber';
 // import Notification from './containers/Notification';
 
 import App from './containers/App';
-
-// import './style/normalize.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import '../node_modules/@fortawesome/fontawesome-free/css/all.css'
-// import 'semantic-ui-less/semantic.less';
-// import 'em-datepicker/dist/react-datepicker.css';
-// import './style/react-datepicker.css';
-// import './style/base.sass';
-// import './style/_fonts.sass';
-// Инициализация компонентов с маршрутами
-import './routes/init';
-// import 'react-table-v6/react-table.css'
-
-// if (process.env.NODE_ENV !== 'production') {
-//   const whyDidYouRender = require('@welldone-software/why-did-you-render');
-//   whyDidYouRender(React);
-// }
-
-// submitOnGlobalEvent(store);
+import { HashRouter } from 'react-router-dom';
 
 
 
-window.addEventListener('online', () => { store.dispatch({ type: 'ONLINE' }); })
-window.addEventListener('offline', () => { store.dispatch({ type: 'OFFLINE' }); })
-window.store = store
+
+// window.addEventListener('online', () => { store.dispatch({ type: 'ONLINE' }); })
+// window.addEventListener('offline', () => { store.dispatch({ type: 'OFFLINE' }); })
+// window.store = store
+
 
 ReactDOM.render(
   <Provider store={store}>
@@ -43,4 +25,7 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-serviceWorker.register();
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();

@@ -2,15 +2,12 @@ import { push } from 'connected-react-router';
 
 import API from '../../services/API/auth.api';
 import MainAPI from '../../services/API/main.api';
-import { forwardByFeature } from '../../utils/forwardByFeature';
-import objectToLocalStorage from '../../utils/localStorageUtils';
 import { NAME_INDEXED_DB } from '../../config'
-import createOrCheckICD from '../../utils/Auth/createOrCheckICD'
 import IndexedDB from '../../services/indexedDB/ICD'
-import {
-  FETCH_USER_DATA_REQUEST,
-  FETCH_USER_DATA_ERROR,
-} from './userService.actions'
+// import {
+//   FETCH_USER_DATA_REQUEST,
+//   FETCH_USER_DATA_ERROR,
+// } from './userService.actions'
 import { getSotrList } from './sotrList.actions'
 
 export const AUTH_REQUEST = 'AUTH_REQUEST';
@@ -24,9 +21,9 @@ export const CHANGE_FETCHING = 'CHANGE_FETCHING'
 export function auth(username, password) {
   return (dispatch) => {
     dispatch({ type: AUTH_REQUEST })
-    dispatch({
-      type: FETCH_USER_DATA_REQUEST,
-    })
+    // dispatch({
+    //   type: FETCH_USER_DATA_REQUEST,
+    // })
     return API.auth(username, password)
 
       .then((data) => {
@@ -40,24 +37,24 @@ export function auth(username, password) {
             })
             return false;
           }
-          if (data.items.length > 0) {
-            objectToLocalStorage(data.items[0]);
-          }
+          // if (data.items.length > 0) {
+          //   objectToLocalStorage(data.items[0]);
+          // }
           // Запись данных авторизации в локальное хранилище
           MainAPI.setAuthData(data);
 
           // экшн вызывает метод, возвращающий список сотрудников, записывает его в хранилище в sotrList
           dispatch(getSotrList())
 
-          createOrCheckICD(NAME_INDEXED_DB.nameDB, NAME_INDEXED_DB.nameDS.ICD).then(() => {
-            dispatch({ type: SET_USER_DATA, payload: data });
-            dispatch({ type: AUTH_SUCCESS,
-              payload: {
-                data,
-              } });
-            // Запись флага IndexedDB
-            dispatch(forwardByFeature(data.items.length > 0 ? data.items[0].prizn : '1'));
-          })
+          // createOrCheckICD(NAME_INDEXED_DB.nameDB, NAME_INDEXED_DB.nameDS.ICD).then(() => {
+          //   dispatch({ type: SET_USER_DATA, payload: data });
+          //   dispatch({ type: AUTH_SUCCESS,
+          //     payload: {
+          //       data,
+          //     } });
+          //   // Запись флага IndexedDB
+          //   dispatch(forwardByFeature(data.items.length > 0 ? data.items[0].prizn : '1'));
+          // })
           sessionStorage.clear()
           return true;
         } catch (err) {
@@ -71,9 +68,9 @@ export function auth(username, password) {
             message: error,
           },
         })
-        dispatch({
-          type: FETCH_USER_DATA_ERROR,
-        })
+        // dispatch({
+        //   type: FETCH_USER_DATA_ERROR,
+        // })
       })
   };
 }

@@ -6,9 +6,9 @@ import createSagaMiddleware from 'redux-saga';
 
 import { rootReducer as createRootReducer } from '../reducers';
 
-import {
-  notification, protocol, errorHandler,
-} from '../middleware';
+// import {
+//   notification, protocol, errorHandler,
+// } from '../middleware';
 
 import rootSagas from '../sagas';
 

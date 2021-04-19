@@ -43,11 +43,11 @@ class RoutsManager {
   registerPage (route) { // old
     this.registeredPage.push(this.routeDataSchema.validateSync(route))
   }
-
+  
   registerRoute (route) {
     this.registerPage(route)
   }
-
+  
   // Инициализация маршрутов
   initRoutes() {
     this.registeredPage.forEach(page => this.routes.unshift(page))

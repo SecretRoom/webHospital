@@ -55,7 +55,8 @@ const LoginPage = ({
 
   return (
     <main className="auth">
-      <Form id="login_form" onSubmit={(e: any): any => onSubmit(e)}>
+      login
+      {/* <Form id="login_form" onSubmit={(e: any): any => onSubmit(e)}>
         <Form.Field className="label_title">
           <h1>
             АВТОРИЗАЦИЯ
@@ -102,7 +103,7 @@ const LoginPage = ({
           <Checkbox label="Запомнить" />
           <Button content="Вход" primary type="submit" />
         </Form.Field>
-      </Form>
+      </Form> */}
     </main>
   );
 }

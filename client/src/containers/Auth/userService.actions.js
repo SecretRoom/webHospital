@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import API from '../../services/API/auth.api';
-import objectToLocalStorage from '../../utils/localStorageUtils';
+// import objectToLocalStorage from '../../utils/localStorageUtils';
 import { getSotrList } from './sotrList.actions'
 
 export const FETCH_USER_DATA_REQUEST = 'FETCH_USER_DATA_REQUEST';
@@ -36,7 +36,7 @@ export function getUserData() {
     return API.getProfileList()
       .then((data) => {
         if (data.items.length > 0) {
-          objectToLocalStorage(data.items[0]);
+          // objectToLocalStorage(data.items[0]);
         }
         dispatch(fetchProfileListSuccess(data));
         dispatch(getSotrList())
@@ -85,12 +85,12 @@ export function getAppVersion() {
 
 export function changeProfile(profile) {
   return (dispatch) => {
-    Promise.resolve().then(() => {
-      objectToLocalStorage(profile);
-      dispatch({
-        type: CHANGE_PROFILE,
-        payload: profile,
-      });
-    });
+    // Promise.resolve().then(() => {
+    //   objectToLocalStorage(profile);
+    //   dispatch({
+    //     type: CHANGE_PROFILE,
+    //     payload: profile,
+    //   });
+    // });
   };
 }
