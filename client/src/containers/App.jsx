@@ -1,12 +1,12 @@
 import React, { Suspense, useEffect } from 'react'
-// import { Switch, useHistory } from 'react-router-dom'
+import { BrowserRouter, Router, Switch, useHistory } from 'react-router-dom'
 // import { connect } from 'react-redux'
 // import PropTypes from 'prop-types'
 // import { Dimmer, Loader } from 'semantic-ui-react'
 // import { logout, getUserData, changeProfile, changeLoadIDB, getAppVersion } from '../actions'
 // import { getCurrentProfile, getF1HintStatus, getF2HintStatus } from '../reducers'
 // import { appVersion } from './Auth/selectors'
-// import routeManager from '../routes'
+import routeManager from '../routes'
 // import { NOTIFICATION_DELAY } from '../config'
 // import Preloader from '../components/Common/Preloader';
 
@@ -14,8 +14,8 @@ import React, { Suspense, useEffect } from 'react'
 
 // import GlobalError from '../components/Blocks/GlobalError';
 // import NavBar from '../components/Blocks/NavBar';
-// import Layout from '../components/Blocks/Layout';
-// import Spinner from '../components/Common/Spinner';
+import Layout from '../components/Blocks/Layout';
+import Spinner from '../components/Common/Spinner';
 
 /**
  * @typedef {component} component
@@ -45,23 +45,23 @@ const App = (/*{
   getAppVersion,
   appVersion,
 }*/) => {
-  // const history = useHistory()
+  const history = useHistory()
 
-  // const _init = () => {
-  //   // Иницилизация маршрутов зарегистрированных страниц
-  //   routeManager.initRoutes()
-  //   if (isAuthenticated) {
-  //     // Получение данных пользователя
-  //     getUserData()
-  //     getAppVersion()
-  //   } else {
-  //     history.push('/login');
-  //   }
-  // }
+  const _init = () => {
+    // Иницилизация маршрутов зарегистрированных страниц
+    routeManager.initRoutes()
+    if (false) {
+      // Получение данных пользователя
+      // getUserData()
+      // getAppVersion()
+    } else {
+      // history.push('/login');
+    }
+  }
 
-  // useEffect(() => {
-  //   _init()
-  // }, [])
+  useEffect(() => {
+    _init()
+  }, [])
 
   // const changeProfileHandler = profile => {
   //   changeProfile(profile)
@@ -95,16 +95,17 @@ const App = (/*{
         <GlobalError message={message} data={errorData} />
       )}
 
-      <Suspense fallback={<Spinner />}>
-        <Layout>
-          <Switch>
-            {routeManager.getRoutes({ isAuthenticated })}
-          </Switch>
-        </Layout>
-      </Suspense>
       <Notification timeout={NOTIFICATION_DELAY} />
     </> */}
-    <div>APP</div>
+    
+    <Suspense fallback={<Spinner />}>
+      <Layout>
+        <Switch>
+          {routeManager.getRoutes({ isAuthenticated: false })}
+        </Switch>
+      </Layout>
+    </Suspense>
+    {/* <div>APP</div> */}
     </>
   )
 }
