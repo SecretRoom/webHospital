@@ -1,5 +1,5 @@
 {
-  "port": 5000,
-  "mongoURI":"mongodb+srv://wh-dev:1104@cluster0.k3fam.mongodb.net/WebHospitalDB?retryWrites=true&w=majority",
+  "port": 1104,
+  "mongoURI":"mongodb+srv://wh-dev:<1104>@webhospitaldb.k3fam.mongodb.net/WebHospitalDB?retryWrites=true&w=majority",
   "jwtSectet": "WebHospital"
 }

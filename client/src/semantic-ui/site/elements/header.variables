@@ -1,7 +1,0 @@
-/*******************************
-    User Variable Overrides
-*******************************/
-
-@margin: 0px;
-@fontFamily: 'Roboto', sans-serif;
-@fontWeight: 500;
