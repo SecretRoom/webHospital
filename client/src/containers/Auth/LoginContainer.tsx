@@ -8,7 +8,7 @@ import Login from '../../components/Auth'
 
 const LoginContainer = (): ReactElement => {
   const [password, setPassword] = useState<string>('')
-  const [userName, setUserName] = useState<string|null>('')
+  const [userName, setUserName] = useState<string | null>('')
 
   const [errorName, setErrorName] = useState<any>([])
   const [errorPass, setErrorPass] = useState<any>([])
@@ -20,6 +20,8 @@ const LoginContainer = (): ReactElement => {
   }, [])
 
   const onSubmit = (e: any): void => {
+    // eslint-disable-next-line no-console
+    console.log('🚀 ~ file: LoginContainer.tsx ~ line 29 ~ onSubmit ~ onSubmit', userName, password)
     e.preventDefault()
     // authenticated = true
     sessionStorage.setItem('login', userName || '')
