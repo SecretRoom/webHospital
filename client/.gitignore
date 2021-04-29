@@ -1,23 +1,19 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
+package-lock.json
+
+/remote-profile
 /node_modules
-/.pnp
-.pnp.js
 
-# testing
-/coverage
+start_remote-debugging-chrome.sh
 
-# production
 /build
 
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+jsdoc.json
+/styleguide
+/styleguide.config.js
+/.docs
+/.docz
+/doces
+/docs
+*.sh
+yarn.lock

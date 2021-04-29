@@ -1,26 +1,25 @@
 module.exports = {
   env: {
     browser: true,
+    es2021: true,
   },
   extends: [
+    'plugin:react/recommended',
     'airbnb',
-    // 'prettier',
-    // 'prettier/react',
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
   parser: 'babel-eslint',
   parserOptions: {
-    ecmaVersion: 11,
     ecmaFeatures: {
       classes: true,
       jsx: true,
     },
+    ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', 'import'],
+  plugins: [
+    'react',
+    '@typescript-eslint',
+  ],
   rules: {
     'react/jsx-filename-extension': [
       1,
@@ -61,14 +60,14 @@ module.exports = {
     'no-param-reassign': 'off', // Это - не наш стиль?
     radix: 'off', // parseInt, parseFloat и radix выключены. Мне это не нравится.
     semi: 'off',
-    'react/jsx-props-no-spreading': 'off',
+    // 'react/jsx-props-no-spreading': 'off',
     // 'react/require-default-props': 'off', // airbnb использует уведомление об ошибке
     // 'react/forbid-prop-types': 'off', // airbnb использует уведомление об ошибке
     'react/no-access-state-in-setstate': 'off',
     'prefer-destructuring': 'off',
     'react/no-did-mount-set-state': 'off',
     'react/no-did-update-set-state': 'off',
-
+    'no-unused-vars': [1, { vars: 'all', args: 'none' }],
     // 'react/no-unused-prop-types': 'off', // Это всё ещё работает нестабильно
     'react/jsx-one-expression-per-line': 'off',
     'jsx-a11y/anchor-is-valid': [
@@ -147,4 +146,4 @@ module.exports = {
       },
     },
   ],
-}
+};

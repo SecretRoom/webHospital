@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 import {
   Route,
-} from 'react-router-dom';
+} from 'react-router-dom'
 import * as yup from 'yup'
 
-// import PrivateRoute from '../HOC/PrivateRoute';
+// import PrivateRoute from '../HOC/PrivateRoute'
 
 import initialRouts from './routes'
 
@@ -56,36 +56,36 @@ class RoutsManager {
   // Создание навигационных ссылок из зарегистрированных маршрутов
   createRoutesSet(rights) {
     if (!rights || rights.length === 0) {
-      return this.routes.filter((route) => route.showNavLink && !route.rights.show);
+      return this.routes.filter((route) => route.showNavLink && !route.rights.show)
     }
     return this.routes.filter((route) => {
       for (let i = 0; i < rights.length; i += 1) {
         if (route.showNavLink && ((route.rights.show === rights[i].nmrightsokr) || !route.rights.show)) {
-          return route;
+          return route
         }
       }
-      return false;
-    }).sort((prevRoute, nextRoute) => prevRoute.order - nextRoute.order);
+      return false
+    }).sort((prevRoute, nextRoute) => prevRoute.order - nextRoute.order)
   }
 
   // Создание компонентов react-router по имеющимся зарегистрированным маршрутам
   getRoutes({
     isAuthenticated,
   }) {
-    let i = 0;
+    let i = 0
     return this.routes.map((route) => {
-      i += 1;
+      i += 1
       const {
         isPrivate, exact, path, component, render,
-      } = route;
-      return React.createElement( Route, {
+      } = route
+      return React.createElement(Route, {
         key: i,
         exact,
         path,
         isAuthenticated,
         component: component || render,
-      });
-    });
+      })
+    })
   }
 }
 

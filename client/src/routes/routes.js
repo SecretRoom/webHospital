@@ -1,10 +1,9 @@
-
-import React from 'react';
+import React from 'react'
 import {
   Redirect,
-} from 'react-router-dom';
+} from 'react-router-dom'
 
-import TestPage from '../modules/TestPage';
+import TestPage from '../modules/TestPage'
 
 const routes = [
   {
@@ -35,6 +34,6 @@ const routes = [
     isPrivate: false,
     exact: true,
   },
-];
+]
 
 export default routes

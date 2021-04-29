@@ -49,7 +49,7 @@ router.post(
 
 // /api/auth/login
 router.post(
-  '/login',
+  '/auth/login',
   [
     check('email', 'Введите корректный email').normalizeEmail().isEmail(),
     check('password', 'Введите пароль').exists(),

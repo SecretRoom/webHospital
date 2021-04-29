@@ -1,14 +1,15 @@
-import React, { useState, ReactElement, useEffect, SyntheticEvent } from 'react';
-import { Button, Checkbox, Form, Icon } from 'semantic-ui-react';
+import React, { useState, ReactElement, useEffect, SyntheticEvent } from 'react'
+import { Button, Checkbox, Form, Icon } from 'semantic-ui-react'
+import * as R from 'ramda'
 
-import './style.sass';
+import './style.sass'
 
 type LoginProps ={
   password: string
   userName: string | null
 
   hiddenPassword: boolean
-  
+
   errorName: any[]
   errorPass: any[]
 
@@ -16,7 +17,6 @@ type LoginProps ={
   handleChange: (e: SyntheticEvent, data: any) => void
   handleClickEye: () => void
 }
-
 
 const Login = ({
   password,
@@ -30,7 +30,7 @@ const Login = ({
   handleClickEye,
 }: LoginProps): ReactElement => (
   <main className="auth">
-    <Form id="login_form" onSubmit={(e: any): any => onSubmit(e)}>
+    <Form className="login_form" onSubmit={(e: any): any => onSubmit(e)}>
       <Form.Field className="label_title">
         <h1>
           АВТОРИЗАЦИЯ
@@ -75,10 +75,15 @@ const Login = ({
       </Form.Field>
       <Form.Field className="btn_in">
         <Checkbox label="Запомнить" />
-        <Button content="Вход" primary type="submit" />
+        <Button
+          content="Вход"
+          primary
+          type="submit"
+          disabled={R.isEmpty(password) || R.isEmpty(userName)}
+        />
       </Form.Field>
     </Form>
   </main>
 )
 
-export default Login;
+export default Login

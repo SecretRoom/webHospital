@@ -1,13 +1,10 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { ReactElement, useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 import routsManager from '../../routes'
 import {
   // auth, logout, getUserData, changeProfile,
-} from '../../actions';
-import Login from '../../components/Auth';
-
-// import { getAppVersion } from './userService.actions'
-
+} from '../../actions'
+import Login from '../../components/Auth'
 
 const LoginContainer = (): ReactElement => {
   const [password, setPassword] = useState<string>('')
@@ -23,12 +20,12 @@ const LoginContainer = (): ReactElement => {
   }, [])
 
   const onSubmit = (e: any): void => {
-    e.preventDefault();
+    e.preventDefault()
     // authenticated = true
     sessionStorage.setItem('login', userName || '')
-    // auth(userName, password);
-    // getAppVersion();
-  };
+    // auth(userName, password)
+    // getAppVersion()
+  }
 
   const handleChange = (e: any, { id, value }: any): void => {
     if (id === 'username') {
@@ -48,30 +45,17 @@ const LoginContainer = (): ReactElement => {
   }
 
   return (
-    <Login 
-    password={password}
-    userName={userName}
-    errorName={errorName}
-    errorPass={errorPass}
-    hiddenPassword={hiddenPassword}
-    onSubmit={onSubmit}
-    handleChange={handleChange}
-    handleClickEye={handleClickEye}
+    <Login
+      password={password}
+      userName={userName}
+      errorName={errorName}
+      errorPass={errorPass}
+      hiddenPassword={hiddenPassword}
+      onSubmit={onSubmit}
+      handleChange={handleChange}
+      handleClickEye={handleClickEye}
     />
   )
 }
 
-export default connect(
-  (state) => ({
-    // isFetching: state.userData.isFetching,
-    // isAuthenticated: state.auth.isAuthenticated,
-    // date: state.userData.date,
-    // name: state.userData.nmsotr,
-    // secondName: state.userData.famsotr,
-    // patronymic: state.userData.otsotr,
-    // currentProfile: getCurrentProfile(state),
-    // sign: getProfileSign(state),
-    // rightsList: getAListOfUserRights(state)
-  }),
-)(LoginContainer);
-
+export default LoginContainer

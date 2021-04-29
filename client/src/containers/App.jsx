@@ -1,5 +1,8 @@
 import React, { Suspense, useEffect } from 'react'
-import { BrowserRouter, Router, Switch, useHistory } from 'react-router-dom'
+import {
+  BrowserRouter, Router, Switch, useHistory,
+} from 'react-router-dom'
+import { hot } from 'react-hot-loader'
 // import { connect } from 'react-redux'
 // import PropTypes from 'prop-types'
 // import { Dimmer, Loader } from 'semantic-ui-react'
@@ -8,14 +11,14 @@ import { BrowserRouter, Router, Switch, useHistory } from 'react-router-dom'
 // import { appVersion } from './Auth/selectors'
 import routeManager from '../routes'
 // import { NOTIFICATION_DELAY } from '../config'
-// import Preloader from '../components/Common/Preloader';
+// import Preloader from '../components/Common/Preloader'
 
-// import Notification from './Blocks/Notification';
+// import Notification from './Blocks/Notification'
 
-// import GlobalError from '../components/Blocks/GlobalError';
-// import NavBar from '../components/Blocks/NavBar';
-import Layout from '../components/Blocks/Layout';
-import Spinner from '../components/Common/Spinner';
+// import GlobalError from '../components/Blocks/GlobalError'
+// import NavBar from '../components/Blocks/NavBar'
+import Layout from '../components/Blocks/Layout'
+import Spinner from '../components/Common/Spinner'
 
 /**
  * @typedef {component} component
@@ -25,7 +28,7 @@ import Spinner from '../components/Common/Spinner';
  * @extends {PureComponent}
  *
  */
-const App = (/*{
+const App = (/* {
   isAuthenticated,
   isFetchingUserData,
   routersSet,
@@ -44,19 +47,19 @@ const App = (/*{
   isShowF2Hint,
   getAppVersion,
   appVersion,
-}*/) => {
+} */) => {
   const history = useHistory()
 
   const _init = () => {
     // Иницилизация маршрутов зарегистрированных страниц
     routeManager.initRoutes()
-    if (false) {
+    // if (false) {
       // Получение данных пользователя
       // getUserData()
       // getAppVersion()
-    } else {
-      // history.push('/login');
-    }
+    // } else {
+      // history.push('/login')
+    // }
   }
 
   useEffect(() => {
@@ -97,15 +100,13 @@ const App = (/*{
 
       <Notification timeout={NOTIFICATION_DELAY} />
     </> */}
-    
-    <Suspense fallback={<Spinner />}>
-      <Layout>
-        <Switch>
-          {routeManager.getRoutes({ isAuthenticated: false })}
-        </Switch>
-      </Layout>
-    </Suspense>
-    {/* <div>APP</div> */}
+      <Suspense fallback={<Spinner />}>
+        <Layout>
+          <Switch>
+            {routeManager.getRoutes({ isAuthenticated: false })}
+          </Switch>
+        </Layout>
+      </Suspense>
     </>
   )
 }
@@ -177,4 +178,4 @@ App.defaultProps = {
 //     getAppVersion: () => dispatch(getAppVersion()),
 //   }),
 // )(App)
-export default App
+export default hot(module)(App)

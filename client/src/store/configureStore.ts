@@ -18,20 +18,20 @@ export const history = createBrowserHistory();
 const store = createStore(
   createRootReducer(history), // root reducer with router state
   compose(
-    // applyMiddleware(
-    //   routerMiddleware(history),
-    //   thunk,
-    //   sagaMiddleware,
-    //   // protocol,
-    //   notification,
-    //   errorHandler,
-    // ),
+    applyMiddleware(
+      routerMiddleware(history),
+      thunk,
+      sagaMiddleware,
+      // protocol,
+      // notification,
+      // errorHandler,
+    ),
 
-    process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION__
-      ? window.__REDUX_DEVTOOLS_EXTENSION__()
-      : (f) => f,
+    // process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION__
+    //   ? window.__REDUX_DEVTOOLS_EXTENSION__()
+    //   : (f) => f,
   ),
 );
-// sagaMiddleware.run(rootSagas);
+// sagaMiddleware.run(rootSagas)
 
 export default store;

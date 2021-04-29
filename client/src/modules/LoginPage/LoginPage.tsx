@@ -1,12 +1,10 @@
-import React, { useState, ReactElement, useEffect } from 'react';
-import { Button, Checkbox, Form, Icon } from 'semantic-ui-react';
-import LoginContainer from '../../containers/Auth/LoginContainer';
-import routsManager from '../../routes';
-
-import './style.sass';
+import React, { useState, ReactElement, useEffect } from 'react'
+import { Button, Checkbox, Form, Icon } from 'semantic-ui-react'
+import LoginContainer from '../../containers/Auth/LoginContainer'
+import routsManager from '../../routes/index'
 
 const LoginPage = (): ReactElement => {
-  return(
+  return (
     <LoginContainer />
   )
 }
