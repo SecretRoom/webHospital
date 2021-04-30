@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom'
 import * as yup from 'yup'
 
-// import PrivateRoute from '../HOC/PrivateRoute'
+import PrivateRoute from '../HOC/PrivateRoute'
 
 import initialRouts from './routes'
 
@@ -40,11 +40,11 @@ class RoutsManager {
   }
 
   // Регистрация маршрутов
-  registerPage (route) { // old
+  registerPage(route) { // old
     this.registeredPage.push(this.routeDataSchema.validateSync(route))
   }
 
-  registerRoute (route) {
+  registerRoute(route) {
     this.registerPage(route)
   }
 
@@ -78,7 +78,7 @@ class RoutsManager {
       const {
         isPrivate, exact, path, component, render,
       } = route
-      return React.createElement(Route, {
+      return React.createElement(isPrivate ? PrivateRoute : Route, {
         key: i,
         exact,
         path,

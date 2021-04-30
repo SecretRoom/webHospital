@@ -1,14 +1,16 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import routsManager from '../../routes'
-import {
-  // auth, logout, getUserData, changeProfile,
-} from '../../actions'
+import { authA } from '../../actions'
 import Login from '../../components/Auth'
 
-const LoginContainer = (): ReactElement => {
+type LoginContainerProps = {
+  auth: ({ userName, password }: { userName: string, password: string }) => void
+}
+
+const LoginContainer = ({ auth }: LoginContainerProps): ReactElement => {
   const [password, setPassword] = useState<string>('')
-  const [userName, setUserName] = useState<string | null>('')
+  const [userName, setUserName] = useState<string>('')
 
   const [errorName, setErrorName] = useState<any>([])
   const [errorPass, setErrorPass] = useState<any>([])
@@ -16,16 +18,14 @@ const LoginContainer = (): ReactElement => {
   const [hiddenPassword, setHiddenPassword] = useState<boolean>(true)
 
   useEffect(() => {
-    setUserName(sessionStorage.getItem('login') ? sessionStorage.getItem('login') : '')
+    setUserName(sessionStorage.getItem('login') ? sessionStorage.getItem('login') || '' : '')
   }, [])
 
   const onSubmit = (e: any): void => {
-    // eslint-disable-next-line no-console
-    console.log('🚀 ~ file: LoginContainer.tsx ~ line 29 ~ onSubmit ~ onSubmit', userName, password)
     e.preventDefault()
     // authenticated = true
     sessionStorage.setItem('login', userName || '')
-    // auth(userName, password)
+    auth({ userName, password })
     // getAppVersion()
   }
 
@@ -60,4 +60,9 @@ const LoginContainer = (): ReactElement => {
   )
 }
 
-export default LoginContainer
+export default connect(
+  () => ({}),
+  {
+    auth: authA.request,
+  },
+)(LoginContainer)

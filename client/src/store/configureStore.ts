@@ -32,6 +32,6 @@ const store = createStore(
     //   : (f) => f,
   ),
 );
-// sagaMiddleware.run(rootSagas)
+sagaMiddleware.run(rootSagas)
 
 export default store;

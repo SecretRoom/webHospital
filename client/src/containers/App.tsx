@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 import React, { Suspense, useEffect } from 'react'
 import {
   BrowserRouter, Router, Switch, useHistory,
 } from 'react-router-dom'
 import { hot } from 'react-hot-loader'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 // import PropTypes from 'prop-types'
 // import { Dimmer, Loader } from 'semantic-ui-react'
 // import { logout, getUserData, changeProfile, changeLoadIDB, getAppVersion } from '../actions'
@@ -19,8 +20,15 @@ import routeManager from '../routes'
 // import NavBar from '../components/Blocks/NavBar'
 import Layout from '../components/Blocks/Layout'
 import Spinner from '../components/Common/Spinner'
+import { isAuthenticatedS } from '../selectors'
 
-const App = () => {
+type AppProps = {
+  isAuthenticated: boolean
+}
+
+const App = ({
+  isAuthenticated,
+}: AppProps) => {
   const history = useHistory()
 
   const _init = () => {
@@ -73,20 +81,20 @@ const App = () => {
 
       <Notification timeout={NOTIFICATION_DELAY} />
     </> */}
-      <Suspense fallback={<Spinner />}>
-        <Layout>
-          <Switch>
-            {routeManager.getRoutes({ isAuthenticated: false })}
-          </Switch>
-        </Layout>
-      </Suspense>
+      {/* <Suspense fallback={<Spinner />}>
+        <Layout> */}
+      <Switch>
+        {routeManager.getRoutes({ isAuthenticated: false })}
+      </Switch>
+      {/* </Layout>
+      </Suspense> */}
     </>
   )
 }
 
-export default connect(
-  state => ({
-    // isAuthenticated: ,
+export default hot(module)(connect(
+  (state): RootStateInterface => ({
+    isAuthenticated: isAuthenticatedS(state),
   }),
   {
     // logout: () => dispatch(logout()),
@@ -95,4 +103,4 @@ export default connect(
     // changeLoadIDB: (/* loading */) => dispatch(changeLoadIDB(true)),
     // getAppVersion: () => dispatch(getAppVersion()),
   },
-)(App)
+)(App))

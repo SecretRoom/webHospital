@@ -1,4 +1,4 @@
-import '../modules/LoginPage/index.ts'
+import '../modules/LoginPage/index.tsx'
 // import '../containers/Reception'
 // import '../containers/Patients'
 // import '../containers/Patient'
