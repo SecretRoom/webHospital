@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const { check, validationResult } = require('express-validator')
 const config = require('config')
 const jwt = require('jsonwebtoken');
-const User = require('../models/User')
+const User = require('../../models/User')
 
 const router = Router()
 
@@ -84,12 +84,12 @@ router.post(
       const token = jwt.sign(
         { userId: user.id },
         config.get('jwtSecret'),
-        { expiresIn: '1h' },
+        // { expiresIn: '1h' },
       )
 
-      res.json({ token, userId: user.id })
+      res.json({ token, userID: user.id, status: '0' })
     } catch (e) {
-      res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+      res.status(500).json({ status: '1', message: 'Что-то пошло не так, попробуйте снова' })
     }
   })
 

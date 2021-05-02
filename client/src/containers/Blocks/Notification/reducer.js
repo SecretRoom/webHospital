@@ -1,4 +1,4 @@
-import uuid from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
   error: false,
@@ -25,11 +25,7 @@ function createNotification(type, message, confirm, cancel) {
   let text = '';
   if (typeof message === 'object') {
     try {
-      if (message instanceof Error) {
-        text = message.message
-      } else {
-        text = 'Неизвестаная ошибка'
-      }
+      text = message.message
     } catch {
       text = 'Неизвестаная ошибка'
     }
@@ -37,7 +33,7 @@ function createNotification(type, message, confirm, cancel) {
     text = message
   }
   return {
-    id: uuid(),
+    id: uuidv4(),
     type,
     text,
     confirm,

@@ -1,7 +1,6 @@
 import { createAsyncAction, createAction } from 'typesafe-actions'
-import { AUTH_ERROR, AUTH_REQUEST, AUTH_SUCCESS } from './types'
+import { AUTH_ERROR, AUTH_REQUEST, AUTH_SUCCESS, LOG_OUT } from './types'
 
-/** Получение списка назначений */
 export const authA = createAsyncAction(
   AUTH_REQUEST,
   AUTH_SUCCESS,
@@ -11,5 +10,12 @@ export const authA = createAsyncAction(
     userName: string,
     password: string,
   },
-  any, Error
+  {
+    userID: string,
+    isAuth: boolean
+  }, Error
 >()
+
+export const logoutA = createAction(
+  LOG_OUT,
+)<undefined>()

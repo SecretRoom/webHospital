@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { Suspense, useEffect } from 'react'
 import {
   BrowserRouter, Router, Switch, useHistory,
@@ -11,22 +10,34 @@ import { connect } from 'react-redux'
 // import { getCurrentProfile, getF1HintStatus, getF2HintStatus } from '../reducers'
 // import { appVersion } from './Auth/selectors'
 import routeManager from '../routes'
-// import { NOTIFICATION_DELAY } from '../config'
+import { NOTIFICATION_DELAY } from '../config'
 // import Preloader from '../components/Common/Preloader'
 
-// import Notification from './Blocks/Notification'
+import Notification from './Blocks/Notification'
 
-// import GlobalError from '../components/Blocks/GlobalError'
-// import NavBar from '../components/Blocks/NavBar'
+import GlobalError from '../components/Blocks/GlobalError'
 import Layout from '../components/Blocks/Layout'
 import Spinner from '../components/Common/Spinner'
-import { isAuthenticatedS } from '../selectors'
+import { isAuthenticatedS, isFetchingS, messageS } from '../selectors'
+import NavBar from '../components/Blocks/NavBar/index'
+import { getUserDataA } from './UserService/actions'
+import { errorDataS, globalErrorS } from './Global/selectors'
 
 type AppProps = {
+  globalError: boolean
   isAuthenticated: boolean
+  isFetchingUserData: boolean
+
+  errorData: any
+
+  getUserData: () => void
 }
 
 const App = ({
+  errorData,
+  getUserData,
+  globalError,
+  isFetchingUserData,
   isAuthenticated,
 }: AppProps) => {
   const history = useHistory()
@@ -36,7 +47,7 @@ const App = ({
     routeManager.initRoutes()
     if (isAuthenticated) {
       // Получение данных пользователя
-      // getUserData()
+      getUserData()
       // getAppVersion()
     } else {
       history.push('/login')
@@ -46,6 +57,18 @@ const App = ({
   useEffect(() => {
     _init()
   }, [])
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (history.location.pathname === '/login') {
+        history.push('/schedule')
+      } else {
+        history.push(history.location.pathname)
+      }
+    } else {
+      history.push('/')
+    }
+  }, [isAuthenticated])
 
   // const changeProfileHandler = profile => {
   //   changeProfile(profile)
@@ -60,34 +83,22 @@ const App = ({
   // }
   return (
     <>
-      {/* {routersSet && (
-        <NavBar
-          navlinks={routersSet}
-          profileList={profileList}
-          name={`${secondName} ${name}`}
-          onLogout={logout}
-          onChangeProfile={changeProfileHandler}
-          currentProfile={currentProfile}
-          isOnline={isOnline}
-          isShowF1Hint={isShowF1Hint}
-          isShowF2Hint={isShowF2Hint}
-          appVersion={appVersion}
-        />
+      {isAuthenticated && (
+        <NavBar />
       )}
 
       {globalError && (
-        <GlobalError message={message} data={errorData} />
+        <GlobalError data={errorData} />
       )}
 
+      <Suspense fallback={<Spinner />}>
+        <Layout>
+          <Switch>
+            {routeManager.getRoutes({ isAuthenticated })}
+          </Switch>
+        </Layout>
+      </Suspense>
       <Notification timeout={NOTIFICATION_DELAY} />
-    </> */}
-      {/* <Suspense fallback={<Spinner />}>
-        <Layout> */}
-      <Switch>
-        {routeManager.getRoutes({ isAuthenticated: false })}
-      </Switch>
-      {/* </Layout>
-      </Suspense> */}
     </>
   )
 }
@@ -95,10 +106,13 @@ const App = ({
 export default hot(module)(connect(
   (state): RootStateInterface => ({
     isAuthenticated: isAuthenticatedS(state),
+    globalError: globalErrorS(state),
+    errorData: errorDataS(state),
+    isFetchingUserData: isFetchingS(state),
   }),
   {
     // logout: () => dispatch(logout()),
-    // getUserData: history => dispatch(getUserData(history)),
+    getUserData: getUserDataA.request,
     // changeProfile: profile => dispatch(changeProfile(profile)),
     // changeLoadIDB: (/* loading */) => dispatch(changeLoadIDB(true)),
     // getAppVersion: () => dispatch(getAppVersion()),

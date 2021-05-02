@@ -1,5 +1,5 @@
-import uuid from 'uuid/v4';
-import * as actionsTypes from '../actions';
+import { v4 as uuidv4 } from 'uuid';
+import * as actionsTypes from '../actions/index.ts';
 import { APIError } from '../services/API/APIError';
 
 export const errorHandler = (store) => (next) => (action) => {
@@ -14,7 +14,7 @@ export const errorHandler = (store) => (next) => (action) => {
       return store.dispatch({
         type: 'NOTIFICATION',
         payload: {
-          id: uuid(),
+          id: uuidv4(),
           type: actionsTypes.NOTIFICATION_ERROR,
           text,
           statusText: error.statusText,
@@ -24,7 +24,7 @@ export const errorHandler = (store) => (next) => (action) => {
       return store.dispatch({
         type: 'NOTIFICATION',
         payload: {
-          id: uuid(),
+          id: uuidv4(),
           type: actionsTypes.NOTIFICATION_ERROR,
           text: error.data,
           statusText: error.statusText,
@@ -34,7 +34,7 @@ export const errorHandler = (store) => (next) => (action) => {
     return store.dispatch({
       type: 'NOTIFICATION',
       payload: {
-        id: uuid(),
+        id: uuidv4(),
         type: actionsTypes.NOTIFICATION_ERROR,
         text: 'UNKNOWN_EXCEPTION',
         statusText: error.statusText,
@@ -55,7 +55,7 @@ export const errorHandler = (store) => (next) => (action) => {
         return store.dispatch({
           type: 'NOTIFICATION',
           payload: {
-            id: uuid(),
+            id: uuidv4(),
             type: actionsTypes.NOTIFICATION_ERROR,
             text: error.message,
             statusText: error.statusText,
@@ -67,7 +67,7 @@ export const errorHandler = (store) => (next) => (action) => {
       return store.dispatch({
         type: 'NOTIFICATION',
         payload: {
-          id: uuid(),
+          id: uuidv4(),
           type: actionsTypes.NOTIFICATION_ERROR,
           text: error.message,
           statusText: error.message,
@@ -78,7 +78,7 @@ export const errorHandler = (store) => (next) => (action) => {
     return store.dispatch({
       type: 'NOTIFICATION',
       payload: {
-        id: uuid(),
+        id: uuidv4(),
         type: actionsTypes.NOTIFICATION_ERROR,
         text: 'UNKNOWN_EXCEPTION',
         statusText: error.statusText,

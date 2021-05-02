@@ -10,6 +10,7 @@ const timer = {}
 function Notification({ notifications, reset, timeout }) {
   function setTimeout(id) {
     if (timer[id]) return
+
     timer[id] = window.setTimeout(() => {
       reset(id)
     }, timeout)

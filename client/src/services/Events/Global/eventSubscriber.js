@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import eventEmitter from './eventEmitter';
-import { requestError } from '../../../actions';
+import { requestError } from '../../../actions/index.ts';
 
 export class GlobalEvent {
   constructor(store, eventEmitter) {

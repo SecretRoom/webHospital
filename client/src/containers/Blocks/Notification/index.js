@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
-import { notificationReset } from '../../../actions';
+import { notificationReset } from '../../../actions/index.ts';
 
 import Notification from '../../../components/Blocks/Notification';
 
@@ -26,7 +26,7 @@ NotificationContainer.propTypes = {
 }
 
 NotificationContainer.defaultProps = {
-  reset: () => {},
+  reset: () => { },
   timeout: 5000,
   notifications: [],
 }

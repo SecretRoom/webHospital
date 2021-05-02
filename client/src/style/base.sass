@@ -1,5 +1,5 @@
 @import index.sass
-  
+
 html,
 body,
 div,
@@ -81,11 +81,11 @@ time,
 mark,
 audio,
 video
-  margin: 0 
-  padding: 0 
-  border: 0 
-  font-size: 100% 
-  font: inherit 
+  margin: 0
+  padding: 0
+  border: 0
+  font-size: 100%
+  font: inherit
   // vertical-align: baseline
 
 /* HTML5 display-role reset for older browsers
@@ -140,7 +140,6 @@ table
   border-collapse: collapse
   border-spacing: 0
 
-
 button
   padding: 0
   margin: 0
@@ -155,7 +154,6 @@ button
   border-bottom: 2px solid transparent
   border-radius: 2px !important
 
-  
 code
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace
 
@@ -165,7 +163,8 @@ code
   clear: both
 
 #root
-  display: block
+  display: grid
+  grid-template-rows: max-content 1fr
   min-height: 100vh
   max-height: 100vh
   position: relative
@@ -263,7 +262,6 @@ input, select
 //     opacity: 1
 //     border-bottom: 1px solid #555
 // }
-
 
 .app__preloader
   width: 25%

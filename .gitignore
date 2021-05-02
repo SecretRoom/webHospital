@@ -1,3 +1,5 @@
+package-lock.json
+
 .idea
 .idea1
 .mypy_cache
@@ -13,7 +15,6 @@ venv
 TEMP
 #client
 .vscode
-package-lock.json
 
 /remote-profile
 /node_modules

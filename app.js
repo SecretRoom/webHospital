@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 
 const app = express();
 app.use(express.json({ extended: true }))
-app.use('/auth', require('./routes/auth.route'));
+app.use('/auth', require('./routes/Auth'));
+app.use('/directories', require('./routes/Directories'));
 
 const PORT = config.get('port');
 
@@ -27,7 +28,5 @@ const start = async () => {
     process.exit(1);
   }
 };
-
-// app.get('/', (req, res) => res.send('Hello World!'))
 
 start();
