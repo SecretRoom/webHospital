@@ -5,10 +5,13 @@ import ProfileMenu from './ProfileMenu/index'
 import NavigateLinkGroup from './NavigateLinkGroup/index'
 import './style.sass'
 import { logoutA } from '../../../actions'
-import { fioEmplS } from '../../../selectors'
+import { deptNameEmplS, fioEmplS, posNameEmplS, profNameEmplS } from '../../../selectors'
 
 type NavBarProps = {
   fioEmpl: string
+  posNameEmpl: string
+  deptNameEmpl: string
+  profNameEmpl: string
 
   onLogout: () => void
   [key: string]: any
@@ -16,6 +19,10 @@ type NavBarProps = {
 
 const NavBar = ({
   fioEmpl,
+  posNameEmpl,
+  deptNameEmpl,
+  profNameEmpl,
+
   onLogout,
 }: NavBarProps): ReactElement => {
   // if (!profileList) return <nav className="navbar navbar-expand-lg navbar-light" />
@@ -25,11 +32,10 @@ const NavBar = ({
       <Menu.Item className="main-navbar__item">
         <ProfileMenu
           fioEmpl={fioEmpl}
-          // profileList={profileList}
-          // onChangeProfile={onChangeProfile}
+          posNameEmpl={posNameEmpl}
+          deptNameEmpl={deptNameEmpl}
+          profNameEmpl={profNameEmpl}
           onLogout={onLogout}
-        // currentProfile={currentProfile}
-        // appVersion={appVersion}
         />
       </Menu.Item>
     </Menu.Menu>
@@ -53,7 +59,7 @@ const NavBar = ({
     // }}
     >
       <NavigateLinkGroup />
-      <Popup position="left center" size="mini" trigger={trigger} />
+      <Popup content={`${deptNameEmpl}  ${profNameEmpl && `/${profNameEmpl}`}`} position="left center" size="mini" trigger={trigger} />
     </Menu>
   )
 }
@@ -61,6 +67,9 @@ const NavBar = ({
 export default connect(
   (state): any => ({
     fioEmpl: fioEmplS(state),
+    posNameEmpl: posNameEmplS(state),
+    deptNameEmpl: deptNameEmplS(state),
+    profNameEmpl: profNameEmplS(state),
   }),
   {
     onLogout: logoutA,

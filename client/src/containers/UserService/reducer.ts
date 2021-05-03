@@ -8,6 +8,13 @@ const INITIAL_STATE = Map<userDataState>({
   isFetching: false,
   idEmpl: '',
   fioEmpl: '',
+  birthday: '',
+  phone: '',
+  email: '',
+  deptName: '',
+  posName: '',
+  profName: '',
+  catName: '',
 })
 
 export default function reducer(
@@ -24,6 +31,13 @@ export default function reducer(
       return state
         .set('idEmpl', action.payload.idEmpl)
         .set('fioEmpl', action.payload.fioEmpl)
+        .set('birthday', action.payload.birthday)
+        .set('phone', action.payload.phone)
+        .set('email', action.payload.email)
+        .set('deptName', action.payload.deptName)
+        .set('posName', action.payload.posName)
+        .set('profName', action.payload.profName)
+        .set('catName', action.payload.catName)
         .set('isFetching', false)
     }
     case getType(getUserDataA.failure): {

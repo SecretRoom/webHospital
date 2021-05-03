@@ -23,6 +23,7 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
+          status: '1',
           message: 'Некорректные данные при регистрации',
         })
       }
@@ -31,7 +32,7 @@ router.post(
       const findUser = await User.findOne({ userName })
 
       if (findUser) {
-        return res.status(400).json({ message: 'Такой пользователь уже существует' })
+        return res.status(400).json({ status: '1', message: 'Такой пользователь уже существует' })
       }
 
       let hashedPassword
@@ -43,9 +44,9 @@ router.post(
 
       await newUser.save()
 
-      res.status(201).json({ message: 'Пользователь создан' })
+      res.status(201).json({ status: '2', message: 'Пользователь создан' })
     } catch (e) {
-      res.status(500).json({ e, message: 'Что-то пошло не так, попробуйте снова' })
+      res.status(500).json({ e, status: '1', message: 'Что-то пошло не так, попробуйте снова' })
     }
   },
 )
