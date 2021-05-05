@@ -2,13 +2,14 @@ import React, { Suspense, useEffect } from 'react'
 import {
   BrowserRouter, Router, Switch, useHistory,
 } from 'react-router-dom'
-import { hot } from 'react-hot-loader'
+import { hot, setConfig } from 'react-hot-loader'
 import { connect } from 'react-redux'
 // import PropTypes from 'prop-types'
 // import { Dimmer, Loader } from 'semantic-ui-react'
 // import { logout, getUserData, changeProfile, changeLoadIDB, getAppVersion } from '../actions'
 // import { getCurrentProfile, getF1HintStatus, getF2HintStatus } from '../reducers'
 // import { appVersion } from './Auth/selectors'
+import { Dimmer, Loader } from 'semantic-ui-react'
 import routeManager from '../routes'
 import { NOTIFICATION_DELAY } from '../config'
 // import Preloader from '../components/Common/Preloader'
@@ -22,6 +23,10 @@ import { isAuthenticatedS, isFetchingS } from '../selectors'
 import NavBar from '../components/Blocks/NavBar/index'
 import { getUserDataA } from './UserService/actions'
 import { errorDataS, globalErrorS } from './Global/selectors'
+
+setConfig({
+  reloadHooks: false,
+});
 
 type AppProps = {
   globalError: boolean
@@ -61,7 +66,7 @@ const App = ({
   useEffect(() => {
     if (isAuthenticated) {
       if (history.location.pathname === '/login') {
-        history.push('/schedule')
+        history.push('/patients')
       } else {
         history.push(history.location.pathname)
       }
@@ -74,13 +79,13 @@ const App = ({
   //   changeProfile(profile)
   // }
 
-  // if (isFetchingUserData) {
-  //   return (
-  //     <Dimmer active inverted>
-  //       <Loader size="massive" inverted content="Загрузка" />
-  //     </Dimmer>
-  //   )
-  // }
+  if (isFetchingUserData) {
+    return (
+      <Dimmer active inverted>
+        <Loader size="massive" inverted content="Загрузка" />
+      </Dimmer>
+    )
+  }
   return (
     <>
       {isAuthenticated && (
@@ -103,7 +108,7 @@ const App = ({
   )
 }
 
-export default hot(module)(connect(
+export default connect(
   (state): RootStateInterface => ({
     isAuthenticated: isAuthenticatedS(state),
     globalError: globalErrorS(state),
@@ -117,4 +122,4 @@ export default hot(module)(connect(
     // changeLoadIDB: (/* loading */) => dispatch(changeLoadIDB(true)),
     // getAppVersion: () => dispatch(getAppVersion()),
   },
-)(App))
+)(App)

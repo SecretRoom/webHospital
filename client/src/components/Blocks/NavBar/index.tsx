@@ -59,7 +59,7 @@ const NavBar = ({
     // }}
     >
       <NavigateLinkGroup />
-      <Popup content={`${deptNameEmpl}  ${profNameEmpl && `/${profNameEmpl}`}`} position="left center" size="mini" trigger={trigger} />
+      <Popup content={`${deptNameEmpl}${profNameEmpl && ` / ${profNameEmpl}`}`} position="left center" size="mini" trigger={trigger} />
     </Menu>
   )
 }

@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import routsManager from '../../routes'
 import { authA } from '../../actions'
 import Login from '../../components/Auth'
 

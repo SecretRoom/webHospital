@@ -8,9 +8,9 @@ const schema = new Schema({
   shortName: { type: String },
   birthday: { type: String, required: true },
   sex: { type: String, required: true },
-  phone: { type: Number, required: true },
+  phone: { type: String, required: true },
   email: { type: String, required: false },
-  oms: { type: Number, required: true },
+  oms: { type: String, required: true },
   omsCompany: { type: String, required: true },
   snils: { type: String, required: true },
 })

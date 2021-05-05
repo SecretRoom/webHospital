@@ -46,18 +46,17 @@
   text-align: center
 
 @mixin font-face($font-family, $file-path, $weight: normal, $style: normal, $asset-pipeline: false )
-	@font-face
-		font-family: $font-family
-		font-weight: $weight
-		font-style: $style
+  @font-face
+    font-family: $font-family
+    font-weight: $weight
+    font-style: $style
 
-		@if $asset-pipeline == true 
-			src: font-url('#{$file-path}.eot')
-			src: font-url('#{$file-path}.eot?#iefix') format('embedded-opentype'), font-url('#{$file-path}.woff') format('woff'), font-url('#{$file-path}.ttf') format('truetype')
-		@else
-			src: url('#{$file-path}.eot')
-			src: url('#{$file-path}.eot?#iefix') format('embedded-opentype'), url('#{$file-path}.woff') format('woff'), url('#{$file-path}.ttf') format('truetype')
-
+    @if $asset-pipeline == true
+      src: font-url('#{$file-path}.eot')
+      src: font-url('#{$file-path}.eot?#iefix') format('embedded-opentype'), font-url('#{$file-path}.woff') format('woff'), font-url('#{$file-path}.ttf') format('truetype')
+    @else
+      src: url('#{$file-path}.eot')
+      src: url('#{$file-path}.eot?#iefix') format('embedded-opentype'), url('#{$file-path}.woff') format('woff'), url('#{$file-path}.ttf') format('truetype')
 
 // OLD не использовать
 //Оформление блока компонента/виджета без отступов 
@@ -66,7 +65,7 @@
   padding: 1em 1em
   // box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.15)
   border-radius: 4px
-  border: 1px solid rgba(34, 36, 38, 0.15);
+  border: 1px solid rgba(34, 36, 38, 0.15)
 
 //Оформление блока компонента/виджета с отступами
 @mixin content-box
@@ -78,9 +77,9 @@
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1)
 
 @mixin primary-button
-  background-color: #2185D0;
-  border: none;
-  color: #fff;
+  background-color: #2185D0
+  border: none
+  color: #fff
   min-width: 100px
   margin-right: 5px
   font-weight: bold

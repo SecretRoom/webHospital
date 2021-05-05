@@ -85,8 +85,9 @@ export const HOT_KEYS = {
  */
 export const NAME_INDEXED_DB = {
   version: 1,
-  nameDB: 'elMed',
+  nameDB: 'WebHospital',
   nameDS: {
+    omsCompanies: 'OmsCompanies',
     ICD: 'ICD',
   },
 }

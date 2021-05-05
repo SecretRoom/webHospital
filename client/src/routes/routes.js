@@ -4,13 +4,14 @@ import {
 } from 'react-router-dom'
 
 import LoginPage from '../modules/LoginPage/index.tsx'
+import PatientsPage from '../modules/PatientsPage/index.tsx'
 import TestPage from '../modules/TestPage'
 
 const routes = [
   {
     title: 'Пациенты',
     path: '/patients',
-    // component: LoginPage,
+    component: PatientsPage,
     rights: {
       show: '',
       edit: '',

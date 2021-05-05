@@ -95,7 +95,7 @@ router.post(
       if (!staff) {
         return res.status(400).json({ status: '1', message: 'Сотрудников нет' })
       }
-      res.json({
+      res.status(200).json({
         items: R.map((item) => ({
           idEmpl: item.idEmpl,
           fioEmpl: item.fioEmpl,

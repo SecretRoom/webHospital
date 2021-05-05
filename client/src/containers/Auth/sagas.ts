@@ -6,7 +6,9 @@ import {
 } from './actions';
 
 import AuthAPI from '../../services/API/Auth'
+import IndexedDB from '../../services/indexedDB/ICD'
 import { getUserDataA, notification } from '../../actions';
+import { NAME_INDEXED_DB } from '../../config';
 
 /**
  * Вход в приложение
@@ -30,6 +32,8 @@ function* authSaga(action: ActionType<typeof authA.request>): SagaIterator {
 function* logoutSaga(): SagaIterator {
   localStorage.clear()
   sessionStorage.clear()
+
+  IndexedDB.deleteDB(NAME_INDEXED_DB.nameDB)
 }
 
 export default function* (): SagaIterator {

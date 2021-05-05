@@ -16,7 +16,7 @@ router.post(
     check('email', 'Некорректный email').isEmail(),
     check('phone', 'Длина = 11, начало c 8 или 7')
       .isLength({ min: 11, max: 11 })
-      .custom((value) => R.startsWith('8', value.toString()) || R.startsWith('7', value.toString())),
+      .custom((value) => (R.startsWith('8', value) || R.startsWith('7', value)) && R.isNil(value.match(/\D/))),
     check('oms', 'Длина ОМС должна быть 16')
       .isLength({ min: 16, max: 16 }),
     check('sex')
@@ -24,13 +24,13 @@ router.post(
       .isLength({ min: 1, max: 1 }),
     check('birthday')
       .custom((value) =>
-        value.split(/\d?\d.\d?\d.\d{4}/)
+        value.split(/\d?\d.\d?\d.\d{4/)
         && R.includes(+value.split('.')[0], R.range(1, 32))
         && R.includes(+value.split('.')[1], R.range(1, 13))
       ),
     check('snils', 'Длина СНИЛС должна быть 11')
       .isLength({ min: 11, max: 11 })
-      .custom((value) => value.match(/\d{11}/))
+      .custom((value) => value.match(/\d{11}/) && R.isNil(value.match(/\D/)))
   ],
   async (req, res) => {
     try {
@@ -100,7 +100,7 @@ router.get(
         return res.status(400).json({ status: '1', message: 'Такого пациента нет' })
       }
 
-      res.status(201).json({ status: '0', items: [findPatient] })
+      res.status(200).json({ status: '0', items: [findPatient] })
 
     } catch (e) {
       res.status(500).json({ e, status: '1', message: 'Что-то пошло не так, попробуйте снова' })
@@ -108,13 +108,21 @@ router.get(
   })
 
 // /patients
-router.get(
+router.post(
   '',
   async (req, res) => {
     try {
-      const findPatient = await Patient.find()
+      let findData = {}
+      R.forEachObjIndexed((value, key) => {
+        if (!R.isNil(value)) {
+          findData = R.mergeAll([findData, { [key]: new RegExp(value, 'i') }])
+        }
+      }, req.body)
+      const findPatient = R.isEmpty(req.body)
+        ? await Patient.find().sort({ surname: 1 })
+        : await Patient.find(findData).sort({ surname: 1 })
 
-      res.status(201).json({ status: '0', items: findPatient })
+      res.status(200).json({ status: '0', items: findPatient })
 
     } catch (e) {
       res.status(500).json({ e, status: '1', message: 'Что-то пошло не так, попробуйте снова' })
