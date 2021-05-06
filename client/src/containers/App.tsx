@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from 'react'
 import {
-  BrowserRouter, Router, Switch, useHistory,
+  Switch, useHistory,
 } from 'react-router-dom'
 import { hot, setConfig } from 'react-hot-loader'
 import { connect } from 'react-redux'
@@ -79,15 +79,20 @@ const App = ({
   //   changeProfile(profile)
   // }
 
-  if (isFetchingUserData) {
-    return (
-      <Dimmer active inverted>
-        <Loader size="massive" inverted content="Загрузка" />
-      </Dimmer>
-    )
-  }
+  // if (isFetchingUserData) {
+  //   return (
+  //     <Dimmer active inverted>
+  //       <Loader size="massive" inverted content="Загрузка" />
+  //     </Dimmer>
+  //   )
+  // }
   return (
     <>
+      {/* {isFetchingUserData && (
+        <Dimmer active>
+          <Loader size="massive" inverted content="Загрузка" />
+        </Dimmer>
+      )} */}
       {isAuthenticated && (
         <NavBar />
       )}
@@ -95,7 +100,6 @@ const App = ({
       {globalError && (
         <GlobalError data={errorData} />
       )}
-
       <Suspense fallback={<Spinner />}>
         <Layout>
           <Switch>

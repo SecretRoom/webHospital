@@ -6,6 +6,7 @@ import { fetchPatientsA } from './actions'
 type patientsState = any
 
 const INITIAL_STATE = Map<patientsState>({
+  isFetching: false,
   patientsList: [],
 })
 

@@ -2,7 +2,7 @@ import React, { ReactElement, SyntheticEvent, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import moment from 'moment'
-import IndexedDB from '../../../services/indexedDB/ICD'
+import IndexedDB from '../../../services/IndexedDB'
 import PatientsFilter from '../../../components/Patients/Filter'
 import { fetchPatientsA } from '../actions'
 import { isFetchingPatientsListS } from '../selectors'
@@ -43,9 +43,9 @@ const PatientsFilterContainer = ({
       if (value[0].match(/\d/)) {
         setOms(R.replace(/\D/, '', value))
         setFullName('')
-      } else if (value[0].match(/[a-zа-я]/i)) {
+      } else if (value[0].match(/[a-zа-я]/gi)) {
         setOms('')
-        setFullName(R.replace(/[^a-zа-я]/, '', value))
+        setFullName(R.replace(/[^a-zа-я]/i, '', value))
       }
     } else if (!R.isEmpty(oms) || !R.isEmpty(fullName)) {
       setOms('')

@@ -1,26 +1,8 @@
-import React, { ReactElement, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { fetchPatientsA } from '../../containers/Patients/actions'
+import React, { ReactElement } from 'react'
 import PatientsWorkSpace from '../../containers/Patients/PatientsContainer'
 
-type PatientsPageProps = {
-  fetchPatients: (arg0: undefined) => void
-}
+const PatientsPage = (): ReactElement => (
+  <PatientsWorkSpace />
+)
 
-const PatientsPage = ({
-  fetchPatients,
-}: PatientsPageProps): ReactElement => {
-  useEffect(() => {
-    fetchPatients(undefined)
-  }, [])
-  return (
-    <PatientsWorkSpace />
-  )
-}
-
-export default connect(
-  () => ({}),
-  {
-    fetchPatients: fetchPatientsA.request,
-  },
-)(PatientsPage)
+export default PatientsPage

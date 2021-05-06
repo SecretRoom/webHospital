@@ -1,11 +1,8 @@
-import { createAsyncAction, createAction } from 'typesafe-actions'
+import { createAsyncAction } from 'typesafe-actions'
 import {
   FETCH_PATIENTS_ERROR,
   FETCH_PATIENTS_REQUEST,
   FETCH_PATIENTS_SUCCESS,
-  FETCH_PATIENT_ERROR,
-  FETCH_PATIENT_REQUEST,
-  FETCH_PATIENT_SUCCESS,
 } from './types'
 
 export const fetchPatientsA = createAsyncAction(
@@ -16,10 +13,3 @@ export const fetchPatientsA = createAsyncAction(
   any | undefined, any[], Error
 >()
 
-export const fetchPatientA = createAsyncAction(
-  FETCH_PATIENT_REQUEST,
-  FETCH_PATIENT_SUCCESS,
-  FETCH_PATIENT_ERROR,
-)<
-  string, any, Error
->()

@@ -6,7 +6,7 @@ import {
 } from './actions';
 
 import AuthAPI from '../../services/API/Auth'
-import IndexedDB from '../../services/indexedDB/ICD'
+import IndexedDB from '../../services/IndexedDB'
 import { getUserDataA, notification } from '../../actions';
 import { NAME_INDEXED_DB } from '../../config';
 

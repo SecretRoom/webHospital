@@ -8,7 +8,9 @@ app.use(express.json({ extended: true }))
 app.use('/auth', require('./routes/Auth'));
 app.use('/directories', require('./routes/Directories/Staff'));
 app.use('/directories', require('./routes/Directories/OmsCompanies'));
+app.use('/directories', require('./routes/Directories/ExamTypes'));
 app.use('/patients', require('./routes/Patients'));
+app.use('/patients', require('./routes/Patients/exam'));
 
 const PORT = config.get('port');
 

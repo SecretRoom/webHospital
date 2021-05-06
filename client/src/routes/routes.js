@@ -4,8 +4,10 @@ import {
 } from 'react-router-dom'
 
 import LoginPage from '../modules/LoginPage/index.tsx'
+import PatientPage from '../modules/PatientPage/index.tsx'
 import PatientsPage from '../modules/PatientsPage/index.tsx'
 import TestPage from '../modules/TestPage'
+import PatientsExaminationsContainer from '../containers/Patient/Examinations/index.tsx'
 
 const routes = [
   {
@@ -17,7 +19,7 @@ const routes = [
       edit: '',
     },
     profile: 'ALL',
-    showNavLink: false,
+    showNavLink: true,
     isPrivate: false,
     exact: true,
   },
@@ -30,7 +32,7 @@ const routes = [
       edit: '',
     },
     profile: 'ALL',
-    showNavLink: false,
+    showNavLink: true,
     isPrivate: false,
     exact: true,
   },
@@ -43,9 +45,22 @@ const routes = [
       edit: '',
     },
     profile: 'ALL',
-    showNavLink: false,
+    showNavLink: true,
     isPrivate: false,
     exact: true,
+  },
+  {
+    title: '',
+    path: '/patients/:id',
+    component: PatientPage,
+    rights: {
+      show: '',
+      edit: '',
+    },
+    profile: 'ALL',
+    showNavLink: false,
+    isPrivate: false,
+    exact: false,
   },
   {
     title: 'test',
@@ -56,6 +71,7 @@ const routes = [
       edit: '',
     },
     profile: 'ALL',
+    showNavLink: false,
     isPrivate: false,
     exact: true,
   },

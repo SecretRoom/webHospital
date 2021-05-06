@@ -2,7 +2,7 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 
 import { getUserDataA } from './actions';
-import IndexedDB from '../../services/indexedDB/ICD'
+import IndexedDB from '../../services/IndexedDB'
 import { userIDS } from '../Auth/selectors';
 import UserDataAPI from '../../services/API/UserData'
 import OmsCompaniesAPI from '../../services/API/OmsCompanies'

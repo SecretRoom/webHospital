@@ -1,7 +1,6 @@
 import React, { ReactElement, SyntheticEvent } from 'react'
-import { Accordion, Button, Dropdown, Icon, Input, Label, Segment } from 'semantic-ui-react'
+import { Accordion, Button, Dropdown, Icon, Input, Segment } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker';
-import InputMask from 'react-input-mask'
 import * as R from 'ramda'
 
 import './style.sass'
@@ -53,67 +52,64 @@ const PatientsFilter = ({
   handleResetFilter,
   handleChangeInputs,
   handleChangeFullFilter,
-}: PatientsFilterProps): ReactElement => {
-  return (
-    <Accordion className="patients-filter">
-      <Accordion.Title
-        className="patients-filter__quick"
-        index={0}
-        as={Segment}
-        onClick={(e: SyntheticEvent): void => e.preventDefault()}
-      >
-        <div className="find-patient">
-          <h4>
-            Поиск по ФИО / ОМС
-          </h4>
-          <Input
-            transparent
-            disabled={isFetching || openFullFilter}
-            icon={{
-              name: 'close',
-              color: 'grey',
-              link: true,
-              onClick: (e: SyntheticEvent) => handleQuickSearch(e as never, { value: '' }),
-            }}
-            value={quickSearchValue}
-            onChange={(e: SyntheticEvent, data: any): void => handleQuickSearch(e as never, data)}
-            placeholder="Поиск..."
-          />
-        </div>
-        <Icon
-          link
-          color="grey"
-          size="large"
-          name="filter"
-          title="Расширенный фильтр"
-          flipped={openFullFilter ? 'vertically' : undefined}
-          onClick={(): void => handleChangeFullFilter()}
+}: PatientsFilterProps): ReactElement => (
+  <div
+    className="patients-filter"
+  >
+    <Segment
+      className="patients-filter__quick"
+      onClick={(e: SyntheticEvent): void => e.preventDefault()}
+    >
+      <div className="find-patient">
+        <h4>
+          Поиск по ФИО / ОМС
+        </h4>
+        <Input
+          transparent
+          disabled={isFetching || openFullFilter}
+          icon={{
+            name: 'close',
+            color: 'grey',
+            link: true,
+            onClick: (e: SyntheticEvent) => handleQuickSearch(e as never, { value: '' }),
+          }}
+          value={quickSearchValue}
+          onChange={(e: SyntheticEvent, data: any): void => handleQuickSearch(e as never, data)}
+          placeholder="Поиск..."
         />
-        <Icon
-          link
-          color="grey"
-          size="large"
-          loading={isFetching}
-          disabled={isFetching}
-          name="sync alternate"
-          title="Обновить список"
-          onClick={(): void => handleUpdateList()}
-        />
-        <Icon
-          link
-          color="grey"
-          size="large"
-          disabled={isFetching}
-          name="undo alternate"
-          title="Сброс фильтрации"
-          onClick={(): void => handleResetFilter()}
-        />
-      </Accordion.Title>
-      <Accordion.Content
-        index={0}
+      </div>
+      <Icon
+        link
+        color={openFullFilter ? 'black' : 'grey'}
+        size="large"
+        name="filter"
+        title="Расширенный фильтр"
+        onClick={(): void => handleChangeFullFilter()}
+      />
+      <Icon
+        link
+        color="grey"
+        size="large"
+        loading={isFetching}
+        disabled={isFetching}
+        name="sync alternate"
+        title="Обновить список"
+        onClick={(): void => handleUpdateList()}
+      />
+      <Icon
+        link
+        color="grey"
+        size="large"
+        disabled={isFetching}
+        name="undo alternate"
+        title="Сброс фильтрации"
+        onClick={(): void => handleResetFilter()}
+      />
+    </Segment>
+    {openFullFilter && (
+      <Segment
         className="patients-filter__full"
-        as={Segment}
-        active={openFullFilter}
+        color="green"
       >
         <div className="fields">
           <div className={R.isEmpty(surname) ? 'field-empty' : 'field'}>
@@ -236,12 +232,14 @@ const PatientsFilter = ({
             {!R.isEmpty(omsCompany) && <span>Страховая компания</span>}
             <Dropdown
               basic
+              compact
               clearable
               value={omsCompany}
               selectOnBlur={false}
+              disabled={isFetching}
               options={omsCompanyList}
-              placeholder="Страховая компания"
               selectOnNavigation={false}
+              placeholder="Страховая компания"
               onChange={(e: SyntheticEvent, { value }: any) => handleChangeInputs(e as never, 'omsCompany', value)}
             />
           </div>
@@ -249,10 +247,12 @@ const PatientsFilter = ({
             {!R.isEmpty(sex) && <span>Пол</span>}
             <Dropdown
               basic
+              compact
               clearable
               value={sex}
               placeholder="Пол"
               selectOnBlur={false}
+              disabled={isFetching}
               selectOnNavigation={false}
               onChange={(e: SyntheticEvent, { value }: any) => handleChangeInputs(e as never, 'sex', value)}
               options={[
@@ -264,18 +264,21 @@ const PatientsFilter = ({
           <Button
             primary
             size="small"
+            disabled={isFetching}
             content="Поиск пациентов"
             onClick={(): void => handleUpdateList()}
           />
           <Button
             primary
             size="small"
+            disabled={isFetching}
             content="Сброс фильтра"
             onClick={(): void => handleResetFilter()}
           />
         </div>
-      </Accordion.Content>
-    </Accordion>
-  )
-}
+      </Segment>
+    )}
+  </div>
+)
+
 export default PatientsFilter

@@ -8,7 +8,7 @@ const NavigateLinkGroup = (): ReactElement => {
   const [mainLinks, setMainLinks] = useState<any[]>([])
 
   useEffect(() => {
-    setMainLinks(R.filter((item: any) => !R.isEmpty(item.title), routsManager.routes))
+    setMainLinks(R.filter((item: any) => item.showNavLink, routsManager.routes))
   }, [])
 
   return (

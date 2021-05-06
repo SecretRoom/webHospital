@@ -5,7 +5,7 @@ import PatientsFilterContainer from '../../containers/Patients/Filter'
 import PatientsContentContainer from '../../containers/Patients/Content'
 
 const PatientsWorkSpace = (): ReactElement => (
-  <div id="patient-workspace">
+  <div id="patients-workspace">
     <PatientsFilterContainer />
     <PatientsContentContainer />
   </div>

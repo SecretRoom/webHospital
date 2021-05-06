@@ -1,12 +1,12 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-named-as-default-member, import/no-extraneous-dependencies */
-import React, { useEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { registerLocale, setDefaultLocale } from 'react-datepicker'
 import { ConnectedRouter } from 'connected-react-router'
-import { BrowserRouter } from 'react-router-dom'
 import ru from 'date-fns/locale/ru';
+import { BrowserRouter } from 'react-router-dom'
 import store, { history } from './store/configureStore'
 import * as serviceWorker from './serviceWorker'
 
@@ -29,10 +29,6 @@ submitOnGlobalEvent(store)
 registerLocale('ru', ru)
 setDefaultLocale(ru)
 
-if (process.env.NODE_ENV !== 'production') {
-  const whyDidYouRender = require('@welldone-software/why-did-you-render')
-  whyDidYouRender(React)
-}
 window.store = store
 
 ReactDOM.render(

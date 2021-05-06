@@ -1,11 +1,26 @@
 import React, { ReactElement } from 'react'
+import { Loader } from 'semantic-ui-react'
 
 import './style.sass'
 
-const PatientsContent = (): ReactElement => (
-  <div>
-    Content
-  </div>
+type PatientsContentProps = {
+  isFetching: boolean
+  createPatientContent: () => ReactElement
+}
+
+const PatientsContent = ({
+  isFetching,
+  createPatientContent,
+}: PatientsContentProps): ReactElement => (
+  <>
+    {isFetching ? (
+      <div className="loader-patientsContent">
+        <Loader active size="huge" inline="centered" />
+      </div>
+    ) : (
+      createPatientContent()
+    )}
+  </>
 )
 
 export default PatientsContent

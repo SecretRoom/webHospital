@@ -1,10 +1,10 @@
-import React, { useState, ReactElement, useEffect, SyntheticEvent } from 'react'
+import React, { ReactElement, SyntheticEvent } from 'react'
 import { Button, Checkbox, Form, Icon } from 'semantic-ui-react'
 import * as R from 'ramda'
 
 import './style.sass'
 
-type LoginProps ={
+type LoginProps = {
   password: string
   userName: string | null
 

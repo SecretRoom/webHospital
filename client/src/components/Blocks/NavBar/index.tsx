@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Menu, Popup } from 'semantic-ui-react'
 import ProfileMenu from './ProfileMenu/index'
