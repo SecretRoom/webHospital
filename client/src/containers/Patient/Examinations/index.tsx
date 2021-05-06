@@ -38,6 +38,7 @@ const PatientsExaminationsContainer = ({
   const [openPortal, setOpenPortal] = useState<boolean>(false)
   const [hiddenSidebar, setHiddenSidebar] = useState<boolean>(false)
 
+  const [examTypes, setExamTypes] = useState<any[]>([])
   const history = useHistory()
 
   const handleChangeHidden = (): void => setHiddenSidebar(prev => !prev)
@@ -53,12 +54,16 @@ const PatientsExaminationsContainer = ({
           handleChangeOpenPortal()
         }}
       >
-        <Icon name="plus" />
+        <Icon
+          color="green"
+          name="plus"
+        />
       </Menu.Item>
     )
     const newlist = R.prepend(createNew(), R.map((item) => (
       <Menu.Item
         as="a"
+        active={item.id === selectedExam}
         key={Math.random().toString()}
         onClick={() => {
           handleChangeHidden()
@@ -66,16 +71,26 @@ const PatientsExaminationsContainer = ({
         }}
       >
         <h4>{item.examTypeName}</h4>
-        <h5>{moment(item.dateExam).format('DD.MM.YYYY HH:MM')}</h5>
-        <h5>{item.fioEmpl}</h5>
+        <span>{`${item.dateExam} / ${item.fioEmpl}`}</span>
       </Menu.Item>
     ), list))
 
     return newlist
   }
 
-  const createExamTypeList = (): ReactElement => (
-    <Menu.Item />
+  const createExamTypeList = (): ReactElement[] => R.map(
+    (item) => (
+      <Menu.Item
+        content={<h4>{item.name}</h4>}
+        onClick={() => {
+          createExam(item.id)
+          handleChangeOpenPortal()
+          handleChangeHidden()
+        }}
+        key={Math.random().toString()}
+      />
+    ),
+    examTypes,
   )
 
   useEffect(() => {
@@ -84,6 +99,10 @@ const PatientsExaminationsContainer = ({
 
   useEffect(() => {
     fetchExamList()
+    getStore.examTypes(undefined).then((res) => setExamTypes(res))
+    return (() => {
+      selectExam('')
+    })
   }, [])
   return (
     <PatientExaminations

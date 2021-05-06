@@ -3,6 +3,16 @@
 // .loader-patientsContent
 .patient-content
   margin: 0 !important
+  &__sidebar
+    .item
+      display: grid !important
+      // justify-content: start !important
+      grid-gap: 5px !important
+      h4
+        color: $main_dark_color !important
+        margin: 0 !important
+      span
+        font-size: 14px
   &__sidebar-trigger
     right: 0
     z-index: 1000
@@ -12,3 +22,20 @@
     opacity: .5 !important
   &__content
     margin: 0 !important
+    &-modal
+      &__header
+        text-align: center
+        padding: 10px !important
+        color: #fff !important
+        background-color: $main_dark_color !important
+      &__content
+        height: 200px
+        max-height: 200px
+        padding: 1px !important
+        .ui.menu
+          border: 0 !important
+          box-shadow: none !important
+          margin: 0 !important
+          .item
+            padding-left: 40px !important
+            width: 360px !important

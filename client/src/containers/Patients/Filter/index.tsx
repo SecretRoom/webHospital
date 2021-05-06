@@ -7,6 +7,7 @@ import PatientsFilter from '../../../components/Patients/Filter'
 import { fetchPatientsA } from '../actions'
 import { isFetchingPatientsListS } from '../selectors'
 import { NAME_INDEXED_DB } from '../../../config'
+import getStore from '../../../services/IndexedDB/getStore'
 
 type PatientsFilterContainerProps = {
   isFetching: boolean
@@ -162,17 +163,15 @@ const PatientsFilterContainer = ({
   ])
 
   useEffect(() => {
-    IndexedDB.getDS(NAME_INDEXED_DB.nameDB, NAME_INDEXED_DB.nameDS.omsCompanies, NAME_INDEXED_DB.version).then((res) => {
-      setOmsCompanyList(
-        R.map(
-          (item: any): any => ({
-            key: item.id,
-            text: item.name,
-            value: item.id,
-          }),
-          res,
-        ),
-      )
+    getStore.omsCopanies(undefined).then((res) => {
+      setOmsCompanyList(R.map(
+        (item: any): any => ({
+          key: item.id,
+          text: item.name,
+          value: item.id,
+        }),
+        res,
+      ))
     })
   }, [])
 

@@ -10,7 +10,7 @@ router.get(
   '/examTypes',
   async (req, res) => {
     try {
-      const findTypes = await Exam_type.find().sort({ name: 1 })
+      const findTypes = await Exam_type.find().sort({ name: 'asc' })
 
       res.status(200).json({ status: '0', items: findTypes })
 

@@ -6,6 +6,7 @@ import IndexedDB from '../../services/IndexedDB'
 import { userIDS } from '../Auth/selectors';
 import UserDataAPI from '../../services/API/UserData'
 import OmsCompaniesAPI from '../../services/API/OmsCompanies'
+import ExaminationAPI from '../../services/API/Examination'
 import { logoutA } from '../Auth/actions';
 import { NAME_INDEXED_DB } from '../../config';
 
@@ -16,9 +17,17 @@ function* getUserDataSaga(): SagaIterator {
 
     if (status !== '1') {
       yield put(getUserDataA.success(items[0]))
-      const data = yield call([OmsCompaniesAPI, OmsCompaniesAPI.getOmsCompanies])
-      if (data.status !== '1') {
-        IndexedDB.createDB(NAME_INDEXED_DB.nameDB, NAME_INDEXED_DB.nameDS.omsCompanies, NAME_INDEXED_DB.version, data.items)
+      const dataOmsCompanies = yield call([OmsCompaniesAPI, OmsCompaniesAPI.getOmsCompanies])
+      const dataExamTypes = yield call([ExaminationAPI, ExaminationAPI.getExamTypeList])
+      if (dataOmsCompanies.status !== '1' && dataExamTypes.status !== '1') {
+        IndexedDB.createDB(
+          NAME_INDEXED_DB.nameDB,
+          {
+            [NAME_INDEXED_DB.nameDS.omsCompanies]: dataOmsCompanies.items,
+            [NAME_INDEXED_DB.nameDS.examTypes]: dataExamTypes.items,
+          },
+          NAME_INDEXED_DB.version,
+        )
       }
     } else {
       yield put(logoutA())

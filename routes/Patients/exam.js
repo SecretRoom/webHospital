@@ -2,6 +2,7 @@
 const { Router } = require('express')
 const { check, validationResult } = require('express-validator')
 const R = require('ramda');
+const moment = require('moment')
 const Examination = require('../../models/Examination')
 const Staff = require('../../models/Staff')
 const ExamType = require('../../models/ExamType')
@@ -12,10 +13,6 @@ const router = Router()
 // /patients/:id/examination/create
 router.post(
   '/:id/examination/create',
-  [
-    check('dateExam')
-      .custom((value) => new Date(value).toString() !== 'Invalid Date'),
-  ],
   async (req, res) => {
     try {
       const errors = validationResult(req)
@@ -29,21 +26,21 @@ router.post(
       }
 
       const {
-        idTypeExam,
+        idExamType,
         dateExam,
         idCreateEmpl,
       } = req.body
 
       const newExamination = new Examination({
         idPat: req.params.id,
-        idTypeExam,
+        idExamType,
         dateExam,
         idCreateEmpl,
       })
 
-      await newExamination.save()
+      const { id } = await newExamination.save()
 
-      res.status(201).json({ status: '0', message: 'Осмотр создан' })
+      res.status(200).json({ status: '0', message: 'Осмотр создан', id })
     } catch (e) {
       res.status(500).json({ e, status: '1', message: 'Что-то пошло не так, попробуйте снова' })
     }
@@ -55,7 +52,7 @@ router.get(
   '/:id/examination',
   async (req, res) => {
     try {
-      const examList = await Examination.find({ idPat: req.params.id }).sort('-dateExam')
+      const examList = await Examination.find({ idPat: req.params.id }).sort({ dateExam: "desc" })
       const emplList = await Staff.find()
       const examTypeList = await ExamType.find()
 
@@ -73,7 +70,7 @@ router.get(
         status: '0',
         items: R.map((item) => ({
           id: item.id,
-          dateExam: item.dateExam,
+          dateExam: moment(item.dateExam).format('DD.MM.YYYY HH:mm').toString(),
           fioEmpl: findEmpl(item.idCreateEmpl),
           examTypeName: findExamType(item.idExamType)
         }), examList),

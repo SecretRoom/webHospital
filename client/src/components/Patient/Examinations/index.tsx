@@ -12,7 +12,7 @@ type PatientsExaminationsProps = {
 
   handleChangeHidden: () => void
   handleChangeOpenPortal: () => void
-  createExamTypeList: () => ReactElement
+  createExamTypeList: () => ReactElement[]
   createMenuItem: (list: any[]) => ReactElement
 }
 
@@ -39,8 +39,9 @@ const PatientsExaminations = ({
         <Sidebar
           vertical
           as={Menu}
-          width="thin"
+          width="wide"
           icon="labeled"
+          className="patient-content__sidebar"
           direction="right"
           animation="overlay"
           visible={!hiddenSidebar}
@@ -70,14 +71,29 @@ const PatientsExaminations = ({
             <Modal
               size="mini"
               open={openPortal}
+              className="patient-content__content-modal"
               onClick={(e: SyntheticEvent) => e.stopPropagation()}
               onClose={(e: SyntheticEvent): void => {
                 e.stopPropagation()
                 handleChangeOpenPortal()
               }}
             >
-              <Modal.Header>Выбор типа осмотра</Modal.Header>
-              <Modal.Content as={Menu} content={createExamTypeList()} />
+              <Modal.Header
+                content="Выбор типа осмотра"
+                className="patient-content__content-modal__header"
+              />
+              <Modal.Content
+                content={(
+                  <Menu
+                    vertical
+                  // secondary
+                  >
+                    {createExamTypeList()}
+                  </Menu>
+                )}
+                className="patient-content__content-modal__content"
+
+              />
             </Modal>
           </Segment>
         </Sidebar.Pusher>
