@@ -1,5 +1,4 @@
-/* eslint-disable global-require */
-/* eslint-disable import/no-named-as-default-member, import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -7,6 +6,7 @@ import { registerLocale, setDefaultLocale } from 'react-datepicker'
 import { ConnectedRouter } from 'connected-react-router'
 import ru from 'date-fns/locale/ru';
 import { BrowserRouter } from 'react-router-dom'
+import moment from 'moment'
 import store, { history } from './store/configureStore'
 import * as serviceWorker from './serviceWorker'
 
@@ -25,6 +25,7 @@ import './style/index.sass'
 import './routes/init'
 import 'semantic-ui-css/semantic.min.css'
 
+moment.locale('ru')
 submitOnGlobalEvent(store)
 registerLocale('ru', ru)
 setDefaultLocale(ru)

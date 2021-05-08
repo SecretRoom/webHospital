@@ -40,7 +40,7 @@ const PatientSideBarContainer = ({
       </Menu.Item>
       <Menu.Item
         as={NavLink}
-        onClick={() => setActiveTab(0)}
+        onClick={() => setActiveTab('0')}
         className="patient-sidebar__item"
         to={{ pathname: `/patients/${idPat}/examination` }}
       >
@@ -55,7 +55,7 @@ const PatientSideBarContainer = ({
       </Menu.Item>
       <Menu.Item
         as={NavLink}
-        onClick={() => setActiveTab(1)}
+        onClick={() => setActiveTab('1')}
         className="patient-sidebar__item"
         to={{ pathname: `/patients/${idPat}/info` }}
 

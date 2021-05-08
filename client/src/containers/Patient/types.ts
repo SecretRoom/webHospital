@@ -1,4 +1,7 @@
 export const FETCH_PATIENT_REQUEST = 'fetch/patient:request'
 export const FETCH_PATIENT_SUCCESS = 'fetch/patient:success'
 export const FETCH_PATIENT_ERROR = 'fetch/patient:error'
+export const UPDATE_PATIENT_REQUEST = 'update/patient:request'
+export const UPDATE_PATIENT_SUCCESS = 'update/patient:success'
+export const UPDATE_PATIENT_ERROR = 'update/patient:error'
 export const SELECT_PATIENT = 'select/patient'

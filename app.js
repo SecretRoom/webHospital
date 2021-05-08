@@ -22,6 +22,7 @@ const start = async () => {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,
+      useFindAndModify: false
     }, (err) => {
       if (err) console.log(`Error in DB connection: ${err}`);
     });

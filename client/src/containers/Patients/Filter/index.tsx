@@ -2,11 +2,9 @@ import React, { ReactElement, SyntheticEvent, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import moment from 'moment'
-import IndexedDB from '../../../services/IndexedDB'
 import PatientsFilter from '../../../components/Patients/Filter'
 import { fetchPatientsA } from '../actions'
 import { isFetchingPatientsListS } from '../selectors'
-import { NAME_INDEXED_DB } from '../../../config'
 import getStore from '../../../services/IndexedDB/getStore'
 
 type PatientsFilterContainerProps = {

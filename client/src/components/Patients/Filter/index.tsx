@@ -185,6 +185,12 @@ const PatientsFilter = ({
               value={phone}
               placeholder="Номер"
               disabled={isFetching}
+              icon={!R.isEmpty(phone) && {
+                name: 'close',
+                color: 'grey',
+                link: true,
+                onClick: (e: SyntheticEvent) => handleChangeInputs(e as never, 'phone', ''),
+              }}
               onChange={(e: SyntheticEvent, { value }: any) => handleChangeInputs(e as never, 'phone', value)}
             />
           </div>
@@ -195,6 +201,12 @@ const PatientsFilter = ({
               value={snils}
               placeholder="СНИЛС"
               disabled={isFetching}
+              icon={!R.isEmpty(snils) && {
+                name: 'close',
+                color: 'grey',
+                link: true,
+                onClick: (e: SyntheticEvent) => handleChangeInputs(e as never, 'snils', ''),
+              }}
               onChange={(e: SyntheticEvent, { value }: any) => handleChangeInputs(e as never, 'snils', value)}
             />
           </div>
@@ -205,6 +217,12 @@ const PatientsFilter = ({
               value={oms}
               placeholder="ОМС"
               disabled={isFetching}
+              icon={!R.isEmpty(oms) && {
+                name: 'close',
+                color: 'grey',
+                link: true,
+                onClick: (e: SyntheticEvent) => handleChangeInputs(e as never, 'oms', ''),
+              }}
               onChange={(e: SyntheticEvent, { value }: any) => handleChangeInputs(e as never, 'oms', value)}
             />
           </div>

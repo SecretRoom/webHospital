@@ -1,18 +1,15 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { ReactElement, SyntheticEvent, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { useHistory } from 'react-router'
-import { NavLink } from 'react-router-dom'
 import { Icon, Menu } from 'semantic-ui-react'
-import moment from 'moment'
 import PatientExaminations from '../../../components/Patient/Examinations'
 import getStore from '../../../services/IndexedDB/getStore'
 import { examListS, isFetchingExamS, selectedExamS } from './selectors'
 import { createExamA, fetchExamListA, selectExamA } from './actions'
 import { idPatS } from '../selectors'
 
-type PatientsExaminationsContainerProps = {
+type PatientExaminationsContainerProps = {
   idPat: string
   selectedExam: string
 
@@ -25,7 +22,7 @@ type PatientsExaminationsContainerProps = {
   createExam: (idType: string) => void
 }
 
-const PatientsExaminationsContainer = ({
+const PatientExaminationsContainer = ({
   idPat,
   examList,
   isFetching,
@@ -34,7 +31,7 @@ const PatientsExaminationsContainer = ({
   selectExam,
   createExam,
   fetchExamList,
-}: PatientsExaminationsContainerProps): ReactElement => {
+}: PatientExaminationsContainerProps): ReactElement => {
   const [openPortal, setOpenPortal] = useState<boolean>(false)
   const [hiddenSidebar, setHiddenSidebar] = useState<boolean>(false)
 
@@ -130,4 +127,4 @@ export default connect(
     createExam: createExamA.request,
     fetchExamList: fetchExamListA.request,
   },
-)(PatientsExaminationsContainer)
+)(PatientExaminationsContainer)

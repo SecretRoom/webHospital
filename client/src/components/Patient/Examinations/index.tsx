@@ -3,7 +3,7 @@ import { Button, Icon, Loader, Menu, Modal, Segment, Sidebar } from 'semantic-ui
 
 import './style.sass'
 
-type PatientsExaminationsProps = {
+type PatientExaminationsProps = {
   isFetching: boolean
   openPortal: boolean
   hiddenSidebar: boolean
@@ -16,7 +16,7 @@ type PatientsExaminationsProps = {
   createMenuItem: (list: any[]) => ReactElement
 }
 
-const PatientsExaminations = ({
+const PatientExaminations = ({
   examList,
   isFetching,
   openPortal,
@@ -25,10 +25,10 @@ const PatientsExaminations = ({
   handleChangeHidden,
   createExamTypeList,
   handleChangeOpenPortal,
-}: PatientsExaminationsProps): ReactElement => (
+}: PatientExaminationsProps): ReactElement => (
   <>
     {isFetching ? (
-      <div className="loader-patientsExaminations">
+      <div className="loader-patientExaminations">
         <Loader active size="huge" inline="centered" />
       </div>
     ) : (
@@ -102,4 +102,4 @@ const PatientsExaminations = ({
   </>
 )
 
-export default PatientsExaminations
+export default PatientExaminations

@@ -105,6 +105,23 @@ router.get(
     } catch (e) {
       res.status(500).json({ e, status: '1', message: 'Что-то пошло не так, попробуйте снова' })
     }
+  }
+)
+// /patients/update/:id
+router.post(
+  '/update/:id',
+  async (req, res) => {
+    try {
+      const findPatient = await Patient.findByIdAndUpdate(req.params.id, req.body.newData)
+      if (!findPatient) {
+        return res.status(400).json({ status: '1', message: 'Ошибка обновления данных' })
+      }
+
+      res.status(200).json({ status: '0', message: 'Данные пациента обновлены' })
+
+    } catch (e) {
+      res.status(500).json({ e, status: '1', message: 'Что-то пошло не так, попробуйте снова' })
+    }
   })
 
 // /patients
