@@ -87,7 +87,8 @@ export const NAME_INDEXED_DB = {
   version: 1,
   nameDB: 'WebHospital',
   nameDS: {
-    ICD: 'ICD',
+    diagnoses: 'diagnoses',
+    staff: 'staff',
     omsCompanies: 'OmsCompanies',
     examTypes: 'ExamTypes',
   },

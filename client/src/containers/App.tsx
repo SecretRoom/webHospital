@@ -79,13 +79,13 @@ const App = ({
   //   changeProfile(profile)
   // }
 
-  // if (isFetchingUserData) {
-  //   return (
-  //     <Dimmer active inverted>
-  //       <Loader size="massive" inverted content="Загрузка" />
-  //     </Dimmer>
-  //   )
-  // }
+  if (isFetchingUserData) {
+    return (
+      <Dimmer active inverted>
+        <Loader size="massive" inverted content="Загрузка" />
+      </Dimmer>
+    )
+  }
   return (
     <>
       {/* {isFetchingUserData && (

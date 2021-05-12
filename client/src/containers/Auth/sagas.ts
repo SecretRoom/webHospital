@@ -1,14 +1,22 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { SagaIterator } from 'redux-saga';
+import * as R from 'ramda'
 import {
   authA, logoutA,
 } from './actions';
+import IndexedDB from '../../services/IndexedDB'
+
+import OmsCompaniesAPI from '../../services/API/OmsCompanies'
+import ExaminationAPI from '../../services/API/Examination'
+import DiagnosesAPI from '../../services/API/Diagnoses'
+import StaffAPI from '../../services/API/Staff'
+
+import { NAME_INDEXED_DB } from '../../config';
 
 import AuthAPI from '../../services/API/Auth'
-import IndexedDB from '../../services/IndexedDB'
+
 import { getUserDataA, notification } from '../../actions';
-import { NAME_INDEXED_DB } from '../../config';
 
 /**
  * Вход в приложение
@@ -17,11 +25,32 @@ import { NAME_INDEXED_DB } from '../../config';
 function* authSaga(action: ActionType<typeof authA.request>): SagaIterator {
   try {
     const { status, userID } = yield call([AuthAPI, AuthAPI.auth], action.payload)
-
     if (status !== '1') {
-      sessionStorage.setItem('userID', userID)
-      yield put(authA.success({ userID, isAuth: true }))
-      yield put(getUserDataA.request())
+      const dataDiagnoses = yield call([ExaminationAPI, DiagnosesAPI.getDiagnoses])
+      const dataOmsCompanies = yield call([OmsCompaniesAPI, OmsCompaniesAPI.getOmsCompanies])
+      const dataExamTypes = yield call([ExaminationAPI, ExaminationAPI.getExamTypeList])
+      const dataStaff = yield call([ExaminationAPI, StaffAPI.getStaff])
+
+      if (
+        dataOmsCompanies.status !== '1'
+        && dataExamTypes.status !== '1'
+        && dataDiagnoses.status !== '1'
+        && dataStaff.status !== '1'
+      ) {
+        IndexedDB.createDB(
+          NAME_INDEXED_DB.nameDB,
+          {
+            [NAME_INDEXED_DB.nameDS.examTypes]: dataExamTypes.items,
+            [NAME_INDEXED_DB.nameDS.diagnoses]: dataDiagnoses.items,
+            [NAME_INDEXED_DB.nameDS.omsCompanies]: dataOmsCompanies.items,
+            [NAME_INDEXED_DB.nameDS.staff]: dataStaff.items,
+          },
+          NAME_INDEXED_DB.version,
+        )
+        sessionStorage.setItem('userID', userID)
+        yield put(authA.success({ userID, isAuth: true }))
+        yield put(getUserDataA.request())
+      }
     }
   } catch (error) {
     yield put(authA.failure(error))

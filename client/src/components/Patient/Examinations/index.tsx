@@ -1,15 +1,17 @@
 import React, { ReactElement, SyntheticEvent } from 'react'
-import { Button, Icon, Loader, Menu, Modal, Segment, Sidebar } from 'semantic-ui-react'
+import { Button, Icon, Loader, Menu, Modal, Popup, Segment, Sidebar } from 'semantic-ui-react'
 
 import './style.sass'
 
 type PatientExaminationsProps = {
+  selectedExamType: string
+
   isFetching: boolean
   openPortal: boolean
   hiddenSidebar: boolean
 
   examList: any[]
-
+  createExamDataContent: (id: string) => ReactElement
   handleChangeHidden: () => void
   handleChangeOpenPortal: () => void
   createExamTypeList: () => ReactElement[]
@@ -21,37 +23,39 @@ const PatientExaminations = ({
   isFetching,
   openPortal,
   hiddenSidebar,
+  selectedExamType,
+
+  createExamDataContent,
   createMenuItem,
   handleChangeHidden,
   createExamTypeList,
   handleChangeOpenPortal,
 }: PatientExaminationsProps): ReactElement => (
-  <>
-    {isFetching ? (
-      <div className="loader-patientExaminations">
-        <Loader active size="huge" inline="centered" />
-      </div>
-    ) : (
-      <Sidebar.Pushable
-        as={Segment}
-        className="patient-content"
-      >
-        <Sidebar
-          vertical
-          as={Menu}
-          width="wide"
-          icon="labeled"
-          className="patient-content__sidebar"
-          direction="right"
-          animation="overlay"
-          visible={!hiddenSidebar}
-        >
-          {createMenuItem(examList)}
-        </Sidebar>
-        <Sidebar.Pusher
-          onClick={(): void | null => (!hiddenSidebar ? handleChangeHidden() : (null))}
-        >
-          {hiddenSidebar && (
+  <Sidebar.Pushable
+    as={Segment}
+    className="patient-content"
+  >
+    <Sidebar
+      vertical
+      as={Menu}
+      width="wide"
+      icon="labeled"
+      className="patient-content__sidebar"
+      direction="right"
+      animation="overlay"
+      visible={!hiddenSidebar}
+    >
+      {createMenuItem(examList)}
+    </Sidebar>
+    <Sidebar.Pusher
+      style={{ height: '100%' }}
+      onClick={(): void | null => (!hiddenSidebar ? handleChangeHidden() : (null))}
+    >
+      {hiddenSidebar && (
+        <Popup
+          position="left center"
+          content="Список осмотров пациента"
+          trigger={(
             <Icon
               link
               bordered
@@ -59,47 +63,45 @@ const PatientExaminations = ({
               size="big"
               name="list"
               color="green"
+              aria-label="Список осмотров"
               onClick={(): void => handleChangeHidden()}
               className="patient-content__sidebar-trigger"
             />
           )}
-          <Segment
-            basic
-            className="patient-content__content"
-          >
-            Examination
-            <Modal
-              size="mini"
-              open={openPortal}
-              className="patient-content__content-modal"
-              onClick={(e: SyntheticEvent) => e.stopPropagation()}
-              onClose={(e: SyntheticEvent): void => {
-                e.stopPropagation()
-                handleChangeOpenPortal()
-              }}
-            >
-              <Modal.Header
-                content="Выбор типа осмотра"
-                className="patient-content__content-modal__header"
-              />
-              <Modal.Content
-                content={(
-                  <Menu
-                    vertical
-                  // secondary
-                  >
-                    {createExamTypeList()}
-                  </Menu>
-                )}
-                className="patient-content__content-modal__content"
-
-              />
-            </Modal>
-          </Segment>
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
-    )}
-  </>
+        />
+      )}
+      <div
+        className="patient-content__content"
+      >
+        {createExamDataContent(selectedExamType)}
+        <Modal
+          size="mini"
+          open={openPortal}
+          className="patient-content__content-modal"
+          onClick={(e: SyntheticEvent) => e.stopPropagation()}
+          onClose={(e: SyntheticEvent): void => {
+            e.stopPropagation()
+            handleChangeOpenPortal()
+          }}
+        >
+          <Modal.Header
+            content="Выбор типа осмотра"
+            className="patient-content__content-modal__header"
+          />
+          <Modal.Content
+            content={(
+              <Menu
+                vertical
+              >
+                {createExamTypeList()}
+              </Menu>
+            )}
+            className="patient-content__content-modal__content"
+          />
+        </Modal>
+      </div>
+    </Sidebar.Pusher>
+  </Sidebar.Pushable>
 )
 
 export default PatientExaminations

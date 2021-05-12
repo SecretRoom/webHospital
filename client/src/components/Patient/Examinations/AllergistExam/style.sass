@@ -1,0 +1,78 @@
+@import '../../../../style/_constants'
+
+// .loader-patientContent
+.allergist-exam__content
+  margin: 0 !important
+  display: grid
+  grid-gap: 10px
+  grid-template-rows: repeat(4, max-content )
+  height: 100%
+  overflow-y: auto
+  overflow-x: hidden
+  .field
+    display: grid
+    width: 99%
+    align-items: end
+    grid-template-rows: repeat(2,max-content)
+    border-bottom: 1px solid #a2a2a2 !important
+    input
+      height: 20px
+      width: 140px
+    span
+      color: $second_color
+      font-weight: bold
+  .field-empty
+    display: grid
+    width: 99%
+    height: 40px
+    align-items: end
+    border-bottom: 1px solid #a2a2a2 !important
+    input
+      width: 140px !important
+      height: 30px
+  .tickets
+    display: grid
+    grid-gap: 20px
+    width: 600px
+    &__header
+      display: grid
+      grid-template-columns: repeat(2, max-content)
+      grid-gap: 10px
+      align-items: center
+      width: max-content
+      span
+        color: $second_color
+        font-weight: bold
+      .ui.button
+        padding: 5px !important
+    &__content
+      width: 600px
+      .ticket-menuItem
+        width: 150px
+        display: grid !important
+      .ticket-tabPane
+        display: grid !important
+        grid-template-rows: repeat(4,max-content)
+        height: 300px
+        grid-gap: 10px
+        word-wrap: break-word
+        width: 300px !important
+        span
+          width: 270px
+          &:last-child
+            height: 180px
+            overflow-y: auto
+.tickets__header-modal__header
+  text-align: center
+  padding: 10px !important
+  color: #fff !important
+  background-color: $main_dark_color !important
+.tickets__header-modal__content
+  display: grid !important
+  grid-gap: 10px
+  grid-template-rows: repeat(2, max-content)
+.newTicket-textarea
+  min-width: 318px !important
+  max-width: 318px !important
+  min-height: 240px !important
+  max-height: 240px !important

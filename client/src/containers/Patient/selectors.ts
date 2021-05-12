@@ -7,6 +7,8 @@ export const isFetchingPatientS = (state: RootStateInterface): boolean => patien
 
 export const idPatS = (state: RootStateInterface): string => patientStateS(state).get('idPat')
 
+export const fullNamePatS = (state: RootStateInterface): string => patientStateS(state).get('fullName')
+
 export const patientInfoS = (state: RootStateInterface): any => ({
   oms: patientStateS(state).get('oms'),
   sex: patientStateS(state).get('sex'),

@@ -5,11 +5,6 @@ class PatientsAPI extends MainAPI {
   getPatients(data: any): Promise<Response> {
     return this.getData('/patients', data || {})
   }
-
-  /** Получение пациента */
-  getPatient(id: string): Promise<Response> {
-    return this.getData(`/patient/${id}`)
-  }
 }
 
 export default new PatientsAPI();

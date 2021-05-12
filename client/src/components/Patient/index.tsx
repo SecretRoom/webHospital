@@ -1,23 +1,24 @@
 import React, { ReactElement } from 'react'
 import './style.sass'
-import PatientExaminationsContainer from '../../containers/Patient/Examinations'
-import PatientInfoContainer from '../../containers/Patient/Info'
 import PatientSideBarContainer from '../../containers/Patient/SideBar'
 
 type PatientWorkSpaceProps = {
   activeTab: string | undefined
 
   setActiveTab: any
+
+  switchContent: (tab: any) => ReactElement
 }
 
 const PatientWorkSpace = ({
   activeTab,
   setActiveTab,
+
+  switchContent,
 }: PatientWorkSpaceProps): ReactElement => (
   <div id="patient-workspace">
     <PatientSideBarContainer setActiveTab={setActiveTab} />
-    {activeTab === '0' && <PatientExaminationsContainer />}
-    {activeTab === '1' && <PatientInfoContainer />}
+    {switchContent(activeTab)}
   </div>
 )
 

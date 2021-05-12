@@ -1,6 +1,6 @@
 import { ActionType, getType } from 'typesafe-actions'
 import { Map } from 'immutable'
-import { createExamA, fetchExamListA, selectExamA } from './actions'
+import { createExamA, fetchExamListA, resetSelectedExamA, selectExamA } from './actions'
 
 type examinationState = any
 
@@ -8,6 +8,7 @@ const INITIAL_STATE = Map<examinationState>({
   isFetching: false,
   examList: [],
   selectedExam: '',
+  selectedExamData: {},
 })
 
 export default function reducer(
@@ -16,6 +17,7 @@ export default function reducer(
     typeof fetchExamListA
     | typeof createExamA
     | typeof selectExamA
+    | typeof resetSelectedExamA
   >): typeof INITIAL_STATE {
   switch (action.type) {
     case getType(fetchExamListA.request): {
@@ -43,9 +45,15 @@ export default function reducer(
       return state
         .set('isFetching', false)
     }
-    case getType(selectExamA): {
+    case getType(selectExamA.success): {
       return state
-        .set('selectedExam', action.payload)
+        .set('selectedExam', action.payload.selectedExam)
+        .set('selectedExamData', action.payload.selectedExamData)
+    }
+    case getType(resetSelectedExamA): {
+      return state
+        .set('selectedExam', '')
+        .set('selectedExamData', {})
     }
     default:
       return state

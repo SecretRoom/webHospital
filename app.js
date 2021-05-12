@@ -1,22 +1,25 @@
 /* eslint-disable no-console */
-const express = require('express');
-const config = require('config');
-const mongoose = require('mongoose');
+const express = require('express')
+const config = require('config')
+const mongoose = require('mongoose')
 
-const app = express();
+const app = express()
 app.use(express.json({ extended: true }))
-app.use('/auth', require('./routes/Auth'));
-app.use('/directories', require('./routes/Directories/Staff'));
-app.use('/directories', require('./routes/Directories/OmsCompanies'));
-app.use('/directories', require('./routes/Directories/ExamTypes'));
-app.use('/patients', require('./routes/Patients'));
-app.use('/patients', require('./routes/Patients/exam'));
+app.use('/auth', require('./routes/Auth'))
+app.use('/directories', require('./routes/Directories/Staff'))
+app.use('/directories', require('./routes/Directories/OmsCompanies'))
+app.use('/directories', require('./routes/Directories/ExamTypes'))
+app.use('/directories', require('./routes/Directories/Analyzes'))
+app.use('/directories', require('./routes/Directories/Diagnoses'))
+app.use('/patients', require('./routes/Patients'))
+app.use('/examination', require('./routes/Examinations'))
+app.use('/schedule_analyzes', require('./routes/ScheduleAnalyzes'))
 
-const PORT = config.get('port');
+const PORT = config.get('port')
 
 const start = async () => {
   try {
-    mongoose.Promise = global.Promise;
+    mongoose.Promise = global.Promise
 
     await mongoose.connect(config.get('mongoURI'), {
       useNewUrlParser: true,
@@ -24,14 +27,14 @@ const start = async () => {
       useUnifiedTopology: true,
       useFindAndModify: false
     }, (err) => {
-      if (err) console.log(`Error in DB connection: ${err}`);
-    });
+      if (err) console.log(`Error in DB connection: ${err}`)
+    })
 
-    app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`));
+    app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`))
   } catch (e) {
-    console.log('🚀 ~ file: app.js ~ line 13 ~ start ~ message', e.message);
-    process.exit(1);
+    console.log('🚀 ~ file: app.js ~ line 13 ~ start ~ message', e.message)
+    process.exit(1)
   }
-};
+}
 
-start();
+start()

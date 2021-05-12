@@ -32,6 +32,34 @@ class GetStore {
     )).name
     return name
   }
+
+  async diagnoses(id: string | undefined): Promise<any> {
+    await IndexedDB.getDS(
+      NAME_INDEXED_DB.nameDS.diagnoses,
+    ).then(res => {
+      const sort = R.sortBy(R.prop('grpname'))
+      list = sort(res)
+    })
+    if (R.isNil(id)) { return list }
+    list = R.flatten(R.map((item) => item.diagnlist, list))
+    const name = JSON.parse(JSON.stringify(
+      R.find(R.propEq('id', id))(list),
+    )).fullname
+    return name
+  }
+
+  async staff(id: string | undefined): Promise<any> {
+    await IndexedDB.getDS(
+      NAME_INDEXED_DB.nameDS.staff,
+    ).then(res => {
+      const sort = R.sortBy(R.prop('fioEmpl'))
+      list = sort(res)
+    })
+    if (R.isNil(id)) { return list }
+    return JSON.parse(JSON.stringify(
+      R.find(R.propEq('idEmpl', id))(list),
+    ))
+  }
 }
 
 export default new GetStore();

@@ -6,6 +6,9 @@ import PatientWorkSpace from '../../components/Patient'
 import { fetchPatientA } from './actions'
 import { idPatS } from './selectors'
 
+import PatientExaminationsContainer from '../../containers/Patient/Examinations'
+import PatientInfoContainer from '../../containers/Patient/Info'
+
 type PatientWorkSpaceContainerProps = {
   idPat: string
 
@@ -18,6 +21,19 @@ const PatientWorkSpaceContainer = ({
 }: PatientWorkSpaceContainerProps): ReactElement => {
   const history = useHistory()
   const [activeTab, setActiveTab] = useState<string>()
+
+  const switchContent = (tab: any): ReactElement => {
+    switch (tab) {
+      case '0':
+        return (<PatientExaminationsContainer />)
+      case '1':
+        return (<PatientInfoContainer />)
+      default:
+        break;
+    }
+
+    return (<></>)
+  }
 
   useEffect(() => {
     switch (activeTab) {
@@ -32,6 +48,7 @@ const PatientWorkSpaceContainer = ({
     }
     if (!R.isNil(activeTab)) sessionStorage.setItem('activeTab', activeTab)
   }, [activeTab])
+
   useEffect(() => {
     setActiveTab((sessionStorage.getItem('activeTab') || '0'))
     fetchPatient()
@@ -43,6 +60,7 @@ const PatientWorkSpaceContainer = ({
     <PatientWorkSpace
       activeTab={activeTab}
       setActiveTab={setActiveTab}
+      switchContent={switchContent}
     />
   )
 }

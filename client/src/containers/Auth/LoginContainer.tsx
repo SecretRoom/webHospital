@@ -1,13 +1,20 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { Dimmer, Loader } from 'semantic-ui-react'
 import { authA } from '../../actions'
 import Login from '../../components/Auth'
+import { isFetchingAuthS } from './selectors'
 
 type LoginContainerProps = {
+  isFetching: boolean
+
   auth: ({ userName, password }: { userName: string, password: string }) => void
 }
 
-const LoginContainer = ({ auth }: LoginContainerProps): ReactElement => {
+const LoginContainer = ({
+  auth,
+  isFetching,
+}: LoginContainerProps): ReactElement => {
   const [password, setPassword] = useState<string>('')
   const [userName, setUserName] = useState<string>('')
 
@@ -45,6 +52,14 @@ const LoginContainer = ({ auth }: LoginContainerProps): ReactElement => {
     input?.focus()
   }
 
+  if (isFetching) {
+    return (
+      <Dimmer active inverted>
+        <Loader size="massive" inverted content="Загрузка" />
+      </Dimmer>
+    )
+  }
+
   return (
     <Login
       password={password}
@@ -60,7 +75,9 @@ const LoginContainer = ({ auth }: LoginContainerProps): ReactElement => {
 }
 
 export default connect(
-  () => ({}),
+  (state) => ({
+    isFetching: isFetchingAuthS(state),
+  }),
   {
     auth: authA.request,
   },

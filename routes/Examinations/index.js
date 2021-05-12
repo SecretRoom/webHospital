@@ -10,9 +10,9 @@ const ExamType = require('../../models/ExamType')
 const router = Router()
 
 
-// /patients/:id/examination/create
+// /examination/create
 router.post(
-  '/:id/examination/create',
+  '/create',
   async (req, res) => {
     try {
       const errors = validationResult(req)
@@ -29,30 +29,39 @@ router.post(
         idExamType,
         dateExam,
         idCreateEmpl,
+        idPat,
       } = req.body
 
       const newExamination = new Examination({
-        idPat: req.params.id,
         idExamType,
+        idPat,
         dateExam,
         idCreateEmpl,
+        editDateExam: '',
+        idEditEmpl: '',
+        dataExam: {},
       })
 
-      const { id } = await newExamination.save()
+      const newData = await newExamination.save()
 
-      res.status(200).json({ status: '0', message: 'Осмотр создан', id })
+      res.status(200).json({ status: '0', message: 'Осмотр создан', id: newData.id, newData })
     } catch (e) {
       res.status(500).json({ e, status: '1', message: 'Что-то пошло не так, попробуйте снова' })
     }
   },
 )
 
-// /patients/:id/examination
-router.get(
-  '/:id/examination',
+// /examination
+router.post(
+  '',
   async (req, res) => {
     try {
-      const examList = await Examination.find({ idPat: req.params.id }).sort({ dateExam: "desc" })
+      const {
+        idPat,
+      } = req.body
+
+
+      const examList = await Examination.find({ idPat }).sort({ dateExam: "desc" })
       const emplList = await Staff.find()
       const examTypeList = await ExamType.find()
 
@@ -71,8 +80,12 @@ router.get(
         items: R.map((item) => ({
           id: item.id,
           dateExam: moment(item.dateExam).format('DD.MM.YYYY HH:mm').toString(),
-          fioEmpl: findEmpl(item.idCreateEmpl),
-          examTypeName: findExamType(item.idExamType)
+          editDateExam: item.editDateExam ? moment(item.editDateExam).format('DD.MM.YYYY HH:mm').toString() : '',
+          fioCreateEmpl: findEmpl(item.idCreateEmpl),
+          fioEditEmpl: item.idEditEmpl ? findEmpl(item.idEditEmpl) : '',
+          examTypeName: findExamType(item.idExamType),
+          idExamType: item.idExamType,
+          dataExam: item.dataExam,
         }), examList),
       })
     } catch (e) {
@@ -80,27 +93,45 @@ router.get(
     }
   })
 
-// /patients // получение данных осмотра
-// router.post(
-//   '',
-//   async (req, res) => {
-//     try {
-//       let findData = {}
-//       R.forEachObjIndexed((value, key) => {
-//         if (!R.isNil(value)) {
-//           findData = R.mergeAll([findData, { [key]: new RegExp(value, 'i') }])
-//         }
-//       }, req.body)
-//       const findPatient = R.isEmpty(req.body)
-//         ? await Patient.find().sort({ surname: 1 })
-//         : await Patient.find(findData).sort({ surname: 1 })
+// /examination/update
+router.post(
+  '/update',
+  [
+    check('dataExam', 'Пустые дынные').isObject().notEmpty(),
+    check('idEditEmpl', 'Пустой сотрудник').isString().notEmpty(),
+  ],
+  async (req, res) => {
+    try {
+      const errors = validationResult(req)
 
-//       res.status(200).json({ status: '0', items: findPatient })
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          errors: errors.array(),
+          status: '1',
+          message: 'Некорректные данные при обновлении осмотра',
+        })
+      }
 
-//     } catch (e) {
-//       res.status(500).json({ e, status: '1', message: 'Что-то пошло не так, попробуйте снова' })
-//     }
-//   })
+      const {
+        idExam,
+        idEditEmpl,
+        dataExam,
+      } = req.body
+      const prevDataExam = await Examination.findById(idExam)
+      const findExam = await Examination.findByIdAndUpdate(idExam, {
+        dataExam: R.mergeRight(
+          prevDataExam.dataExam,
+          dataExam,
+        ),
+        idEditEmpl,
+        editDateExam: new Date(),
+      })
 
+      if (findExam) res.status(200).json({ status: '0', message: 'Осмотр обновлен' })
+    } catch (e) {
+      res.status(500).json({ e, status: '1', message: 'Что-то пошло не так, попробуйте снова' })
+    }
+  },
+)
 
 module.exports = router

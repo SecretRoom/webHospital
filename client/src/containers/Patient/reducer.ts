@@ -1,6 +1,6 @@
 import { ActionType, getType } from 'typesafe-actions'
 import { Map } from 'immutable'
-import { fetchPatientA, selectPatientA } from './actions'
+import { fetchAnalyzesListA, fetchAnalyzesScheduleA, fetchPatientA, selectPatientA } from './actions'
 
 type patientState = any
 
@@ -19,6 +19,8 @@ const INITIAL_STATE = Map<patientState>({
   oms: '',
   omsCompany: '',
   snils: '',
+  scheduleAnalyzes: [],
+  analyzesList: [],
 })
 
 export default function reducer(
@@ -26,6 +28,8 @@ export default function reducer(
   action: ActionType<
     typeof fetchPatientA
     | typeof selectPatientA
+    | typeof fetchAnalyzesListA
+    | typeof fetchAnalyzesScheduleA
   >): typeof INITIAL_STATE {
   switch (action.type) {
     case getType(fetchPatientA.request): {
@@ -71,6 +75,25 @@ export default function reducer(
       return state
         .set('idPat', action.payload)
     }
+    case getType(fetchAnalyzesListA.success): {
+      return state
+        .set('isFetching', false)
+        .set('analyzesList', action.payload)
+    }
+    case getType(fetchAnalyzesListA.failure): {
+      return state
+        .set('isFetching', false)
+    }
+    case getType(fetchAnalyzesScheduleA.success): {
+      return state
+        .set('isFetching', false)
+        .set('scheduleAnalyzes', action.payload)
+    }
+    case getType(fetchAnalyzesScheduleA.failure): {
+      return state
+        .set('isFetching', false)
+    }
+
     default:
       return state
   }

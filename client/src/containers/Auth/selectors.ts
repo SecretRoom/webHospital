@@ -5,4 +5,6 @@ export const authStateS = (state: RootStateInterface): Map<string, any> => state
 
 export const isAuthenticatedS = (state: RootStateInterface): boolean => authStateS(state).get('isAuthenticated')
 
-export const userIDS = (state: RootStateInterface): boolean => authStateS(state).get('userID')
+export const userIDS = (state: RootStateInterface): string => authStateS(state).get('userID')
+
+export const isFetchingAuthS = (state: RootStateInterface): boolean => authStateS(state).get('isFetching')

@@ -97,6 +97,7 @@ router.post(
       }
       res.status(200).json({
         items: R.map((item) => ({
+          id: item.id,
           idEmpl: item.idEmpl,
           fioEmpl: item.fioEmpl,
           birthday: item.birthday,

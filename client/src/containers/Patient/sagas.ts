@@ -3,8 +3,11 @@ import { SagaIterator } from 'redux-saga';
 import * as R from 'ramda'
 import { ActionType } from 'typesafe-actions';
 import PatientAPI from '../../services/API/Patient'
-import { fetchPatientA, updatePatientA } from './actions';
+import AnalyzesAPI from '../../services/API/Analyzes'
+import { addAnalysisA, fetchAnalyzesListA, fetchAnalyzesScheduleA, fetchPatientA, updatePatientA } from './actions';
 import { idPatS } from './selectors';
+import { idEmplS } from '../UserService/selectors';
+import { selectedExamS } from './Examinations/selectors';
 
 function* fetchPatientSaga(): SagaIterator {
   try {
@@ -13,6 +16,8 @@ function* fetchPatientSaga(): SagaIterator {
 
     if (status !== '1') {
       yield put(fetchPatientA.success(items[0]))
+      yield put(fetchAnalyzesListA.request())
+      yield put(fetchAnalyzesScheduleA.request())
     }
   } catch (error) {
     yield put(fetchPatientA.failure(error))
@@ -33,7 +38,56 @@ function* updatePatientSaga(action: ActionType<typeof updatePatientA.request>): 
   }
 }
 
+function* addAnalysisSaga(action: ActionType<typeof addAnalysisA.request>): SagaIterator {
+  try {
+    const idPat = yield select(state => idPatS(state))
+    const idEmpl = yield select(state => idEmplS(state))
+    const idExam = yield select(state => selectedExamS(state))
+    const { status } = yield call([AnalyzesAPI, AnalyzesAPI.addAnalysis], {
+      ...action.payload,
+      idPat,
+      idEmpl,
+      idExam,
+    })
+
+    if (status !== '1') {
+      yield put(addAnalysisA.success())
+      yield put(fetchAnalyzesScheduleA.request())
+    }
+  } catch (error) {
+    yield put(addAnalysisA.failure(error))
+  }
+}
+
+function* fetchScheduleAnalysesSaga(): SagaIterator {
+  try {
+    const idPat = yield select(state => idPatS(state))
+    const { status, items } = yield call([AnalyzesAPI, AnalyzesAPI.getScheduleAnalyzes], { idPat })
+
+    if (status !== '1') {
+      yield put(fetchAnalyzesScheduleA.success(items))
+    }
+  } catch (error) {
+    yield put(fetchAnalyzesScheduleA.failure(error))
+  }
+}
+
+function* fetchAnalyzesListSaga(): SagaIterator {
+  try {
+    const { status, items } = yield call([AnalyzesAPI, AnalyzesAPI.getAnalyzesList])
+
+    if (status !== '1') {
+      yield put(fetchAnalyzesListA.success(items))
+    }
+  } catch (error) {
+    yield put(fetchAnalyzesListA.failure(error))
+  }
+}
+
 export default function* (): SagaIterator {
+  yield takeEvery(addAnalysisA.request, addAnalysisSaga)
   yield takeEvery(fetchPatientA.request, fetchPatientSaga)
   yield takeEvery(updatePatientA.request, updatePatientSaga)
+  yield takeEvery(fetchAnalyzesListA.request, fetchAnalyzesListSaga)
+  yield takeEvery(fetchAnalyzesScheduleA.request, fetchScheduleAnalysesSaga)
 }

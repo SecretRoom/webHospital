@@ -11,27 +11,28 @@ class IndexedDB {
   async createDB(nameDB, stores, version) {
     try {
       let create = false
-      await this.deleteDB(nameDB)
-      dataBase = await idb.openDB(nameDB, version, {
-        upgrade(db) {
-          R.forEachObjIndexed((list, nameDS) => {
-            db.createObjectStore(nameDS, { keyPath: 'id', autoIncrement: true })
-          }, stores)
-          create = true
-        },
-      })
-      if (create) {
-        R.forEachObjIndexed(async (list, nameDS) => {
-          this.tx = await dataBase.transaction(nameDS, 'readwrite')
-          list.forEach(async (item) => {
-            await this.tx.store.add({
-              ...item,
-              id: item._id,
+      await this.deleteDB(nameDB).then(async () => {
+        dataBase = await idb.openDB(nameDB, version, {
+          upgrade(db) {
+            R.forEachObjIndexed((list, nameDS) => {
+              db.createObjectStore(nameDS, { keyPath: 'id', autoIncrement: true })
+            }, stores)
+            create = true
+          },
+        })
+        if (create) {
+          await R.forEachObjIndexed(async (list, nameDS) => {
+            this.tx = await dataBase.transaction(nameDS, 'readwrite')
+            list.forEach(async (item) => {
+              await this.tx.store.add({
+                ...item,
+                id: item._id || item.id || item.idEmpl,
+              })
             })
-          })
-          await this.tx.done
-        }, stores)
-      }
+            await this.tx.done
+          }, stores)
+        }
+      })
       // if (dataBase.objectStoreNames.contains(nameDS)) {
       //   create = true
       // }
