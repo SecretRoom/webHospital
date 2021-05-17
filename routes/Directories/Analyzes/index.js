@@ -13,7 +13,6 @@ router.get(
   async (req, res) => {
     try {
       const findAnalysis = await Analysis.find().sort({ name: 'asc' })
-      console.log("🚀 ~ file: index.js ~ line 16 ~ findAnalysis", findAnalysis)
       res.status(200).json({ status: '0', items: findAnalysis, })
 
     } catch (e) {

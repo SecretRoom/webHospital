@@ -2,27 +2,38 @@ import React, { ReactElement, SyntheticEvent, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import moment from 'moment'
+import { Button, Card, Segment } from 'semantic-ui-react'
 import PatientInfo from '../../../components/Patient/Info'
 import getStore from '../../../services/IndexedDB/getStore'
-import { idPatS, isFetchingPatientS, patientInfoS } from '../selectors'
-import { updatePatientA } from '../actions'
+import { analyzesListS, idPatS, isFetchingPatientS, patientInfoS, scheduleAnalyzesS } from '../selectors'
+import { removeAnalysisA, updatePatientA } from '../actions'
+import { examListS } from '../Examinations/selectors'
+import { fetchExamListA } from '../Examinations/actions'
 
 type PatientInfoContainerProps = {
   idPat: string
 
   isFetching: boolean
 
+  examList: any[]
   patientInfo: any
+  scheduleAnalyzes: any[]
 
+  fetchExamList: () => void
+  removeAnalysis: (id: string) => void
   updatePatient: (newData: any) => void
 }
 
 const PatientInfoContainer = ({
   idPat,
+  examList,
   isFetching,
   patientInfo,
+  scheduleAnalyzes,
 
   updatePatient,
+  fetchExamList,
+  removeAnalysis,
 }: PatientInfoContainerProps): ReactElement => {
   const [oms, setOms] = useState<string>('')
   const [sex, setSex] = useState<string>('')
@@ -40,6 +51,9 @@ const PatientInfoContainer = ({
   const [isIdent, setIsIdent] = useState<boolean>(false)
   const [isDisInput, setIsDisInput] = useState<boolean>(true)
 
+  const [staff, setStaff] = useState<any[]>([])
+  const [tickets, setTickets] = useState<any[]>([])
+  const [analyzes, setAnalyzes] = useState<any[]>([])
   const [omsCompanyList, setOmsCompanyList] = useState<any[]>([])
 
   const handleChangeInputs = (e: SyntheticEvent, field: string, value: any): void => {
@@ -115,6 +129,106 @@ const PatientInfoContainer = ({
     setIsDisInput(prev => !prev)
   }
 
+  const createCardGroupTickets = (list: any[]): ReactElement => {
+    const findEmpl = (id: string) => {
+      let empl: any
+      let newFio: any
+      if (!R.isEmpty(staff) && !R.isNil(staff)) {
+        empl = JSON.parse(JSON.stringify(R.find(R.propEq('idEmpl', id))(staff) || {}))
+        if (!R.isNil(empl) && !R.isEmpty(empl)) {
+          newFio = empl.fioEmpl.match(/[a-zа-я]+/gi)
+          switch (newFio?.length) {
+            case 1:
+              newFio = newFio[0]
+              break
+            case 2:
+              newFio = `${newFio[0]} ${newFio[1][0]}.`
+              break
+            case 3:
+              newFio = `${newFio[0]} ${newFio[1][0]}.${newFio[2][0]}.`
+              break
+            default:
+              break;
+          }
+        }
+      }
+      return {
+        newFio,
+        dataEmpl: empl,
+      }
+    }
+
+    const createCard = (item: any): ReactElement => (
+      <div className="card-group__card" key={Math.random()}>
+        <div className="field">
+          <span>Дата направления</span>
+          <span>{moment(item.dateCreate).format('DD.MM.YYYY HH:mm')}</span>
+        </div>
+        <div className="field">
+          <span>Направивший врач</span>
+          <span>{findEmpl(item.idEmplRef).newFio}</span>
+        </div>
+        <div className="field">
+          <span>Направление в отделение</span>
+          <span>{findEmpl(item.idEmpl).dataEmpl?.deptName}</span>
+        </div>
+        <div className="field">
+          <span>Сотрудник</span>
+          <span>{`${findEmpl(item.idEmpl).dataEmpl?.profName} / ${findEmpl(item.idEmpl).newFio}`}</span>
+        </div>
+      </div>
+    )
+
+    return (
+      <Segment className="tickets">
+        <h4>Направления</h4>
+        <div className="card-group">
+          {R.map(createCard, list)}
+        </div>
+      </Segment>
+    )
+  }
+
+  const createCardGroupAnalyzes = (list: any[]): ReactElement => {
+    const createCard = (item: any): ReactElement => (
+      <div className={moment(item.date).isAfter(new Date()) ? 'card-group__card-act' : 'card-group__card'} key={Math.random()}>
+        <div className="field">
+          <span>Тип анализа</span>
+          <span>{item.nameAnalysis}</span>
+        </div>
+        <div className="field">
+          <span>Дата анализа</span>
+          <span>{moment(item.date).format('DD.MM.YYYY HH:mm')}</span>
+        </div>
+        <div className="field">
+          <span>Направивший врач</span>
+          <span>{item.fioEmpl}</span>
+        </div>
+        <div className="field">
+          <span>Сумма к оплате</span>
+          <span>{item.sum}</span>
+          {moment(item.date).isAfter(new Date()) && (
+            <Button
+              basic
+              color="red"
+              content="Отменить"
+              onClick={(): void => removeAnalysis(item._id)}
+            />
+          )}
+        </div>
+      </div>
+    )
+
+    return (
+      <Segment className="analyzes">
+        <h4>Анализы</h4>
+        <div className="card-group">
+          {R.map(createCard, list)}
+        </div>
+      </Segment>
+    )
+  }
+
   useEffect(() => {
     if (!R.isEmpty(patientInfo) && !R.isNil(patientInfo)) {
       setOms(patientInfo.oms)
@@ -178,6 +292,15 @@ const PatientInfoContainer = ({
   ])
 
   useEffect(() => {
+    setTickets(R.flatten(R.map((item) => item.dataExam.tickets, examList)))
+  }, [examList])
+
+  useEffect(() => {
+    const sortDate = R.sortBy(R.prop('date'))
+    setAnalyzes(sortDate(R.filter((item) => item.idPat === idPat, scheduleAnalyzes)))
+  }, [scheduleAnalyzes])
+
+  useEffect(() => {
     getStore.omsCopanies(undefined).then((res) => {
       setOmsCompanyList(R.map(
         (item: any): any => ({
@@ -188,6 +311,10 @@ const PatientInfoContainer = ({
         res,
       ))
     })
+    getStore.staff(undefined).then((res) => {
+      setStaff(res)
+    })
+    fetchExamList()
   }, [])
 
   return (
@@ -200,8 +327,10 @@ const PatientInfoContainer = ({
       phone={phone}
       isIdent={isIdent}
       surname={surname}
+      tickets={tickets}
       isError={isError}
       birthday={birthday}
+      analyzes={analyzes}
       isDisInput={isDisInput}
       patronymic={patronymic}
       omsCompany={omsCompany}
@@ -212,6 +341,8 @@ const PatientInfoContainer = ({
       handleClickReset={handleClickReset}
       handleClickCancel={handleClickCancel}
       handleChangeInputs={handleChangeInputs}
+      createCardGroupTickets={createCardGroupTickets}
+      createCardGroupAnalyzes={createCardGroupAnalyzes}
     />
   )
 }
@@ -219,10 +350,14 @@ const PatientInfoContainer = ({
 export default connect(
   (state) => ({
     idPat: idPatS(state),
+    examList: examListS(state),
     patientInfo: patientInfoS(state),
     isFetching: isFetchingPatientS(state),
+    scheduleAnalyzes: scheduleAnalyzesS(state),
   }),
   {
+    fetchExamList: fetchExamListA.request,
     updatePatient: updatePatientA.request,
+    removeAnalysis: removeAnalysisA.request,
   },
 )(PatientInfoContainer)

@@ -8,6 +8,7 @@ import { default as userData } from '../containers/UserService/reducer'
 import { default as notification } from '../containers/Blocks/Notification/reducer';
 import { default as global } from '../containers/Global/reducer';
 import { default as patients } from '../containers/Patients/reducer';
+import { default as scheduleAppointment } from '../containers/ScheduleAppointment/reducer';
 import { default as patient } from '../containers/Patient/reducer';
 import { default as examination } from '../containers/Patient/Examinations/reducer';
 
@@ -23,6 +24,7 @@ export const rootReducer = (history: any): any => (state: any, action: any) => {
     examination,
     notification,
     auth: authReducer,
+    scheduleAppointment,
     router: connectRouter(history),
   })
 

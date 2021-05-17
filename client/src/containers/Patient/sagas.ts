@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import { ActionType } from 'typesafe-actions';
 import PatientAPI from '../../services/API/Patient'
 import AnalyzesAPI from '../../services/API/Analyzes'
-import { addAnalysisA, fetchAnalyzesListA, fetchAnalyzesScheduleA, fetchPatientA, updatePatientA } from './actions';
+import { addAnalysisA, fetchAnalyzesListA, fetchAnalyzesScheduleA, fetchPatientA, removeAnalysisA, updatePatientA } from './actions';
 import { idPatS } from './selectors';
 import { idEmplS } from '../UserService/selectors';
 import { selectedExamS } from './Examinations/selectors';
@@ -35,6 +35,19 @@ function* updatePatientSaga(action: ActionType<typeof updatePatientA.request>): 
     }
   } catch (error) {
     yield put(updatePatientA.failure(error))
+  }
+}
+
+function* removeAnalysisSaga(action: ActionType<typeof removeAnalysisA.request>): SagaIterator {
+  try {
+    const { status } = yield call([AnalyzesAPI, AnalyzesAPI.removeAnalysis], action.payload)
+
+    if (status !== '1') {
+      yield put(removeAnalysisA.success())
+      yield put(fetchAnalyzesScheduleA.request())
+    }
+  } catch (error) {
+    yield put(removeAnalysisA.failure(error))
   }
 }
 
@@ -88,6 +101,7 @@ export default function* (): SagaIterator {
   yield takeEvery(addAnalysisA.request, addAnalysisSaga)
   yield takeEvery(fetchPatientA.request, fetchPatientSaga)
   yield takeEvery(updatePatientA.request, updatePatientSaga)
+  yield takeEvery(removeAnalysisA.request, removeAnalysisSaga)
   yield takeEvery(fetchAnalyzesListA.request, fetchAnalyzesListSaga)
   yield takeEvery(fetchAnalyzesScheduleA.request, fetchScheduleAnalysesSaga)
 }

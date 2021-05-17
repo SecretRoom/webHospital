@@ -16,6 +16,8 @@ import {
 import { createExamA, fetchExamListA, resetSelectedExamA, selectExamA, updateExamA } from './actions'
 import { idPatS, fullNamePatS, patientInfoS } from '../selectors'
 import AllergistExamContainer from './AllergistExam'
+import NeurologistExamContainer from './NeurologistExam'
+import SurgicalExamContainer from './SurgicalExam'
 
 type PatientExaminationsContainerProps = {
   idPat: string
@@ -223,6 +225,8 @@ const PatientExaminationsContainer = ({
 
           </Segment>
           {id === '60947aee7fe0c94b85a8183e' && <AllergistExamContainer />}
+          {id === '60947ad77fe0c94b85a8183d' && <NeurologistExamContainer />}
+          {id === '609346f53c5cc3ec95adba80' && <SurgicalExamContainer />}
         </>
       )
     }

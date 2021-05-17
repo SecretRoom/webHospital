@@ -6,8 +6,8 @@ import {
 import LoginPage from '../modules/LoginPage/index.tsx'
 import PatientPage from '../modules/PatientPage/index.tsx'
 import PatientsPage from '../modules/PatientsPage/index.tsx'
+import ScheduleAppointmentPage from '../modules/ScheduleAppointmentPage/index.tsx'
 import TestPage from '../modules/TestPage'
-import PatientsExaminationsContainer from '../containers/Patient/Examinations/index.tsx'
 
 const routes = [
   {
@@ -26,7 +26,7 @@ const routes = [
   {
     title: 'График приема',
     path: '/schedule',
-    // component: LoginPage,
+    component: ScheduleAppointmentPage,
     rights: {
       show: '',
       edit: '',

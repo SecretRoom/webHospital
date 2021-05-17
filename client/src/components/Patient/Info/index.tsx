@@ -22,12 +22,16 @@ type PatientInfoProps = {
   isDisInput: boolean
   isFetching: boolean
 
+  tickets: any[]
+  analyzes: any[]
   omsCompanyList: any[]
 
   handleClickEdit: () => void
   handleClickSave: () => void
   handleClickReset: () => void
   handleClickCancel: () => void
+  createCardGroupTickets: (list: any[]) => ReactElement
+  createCardGroupAnalyzes: (list: any[]) => ReactElement
   handleChangeInputs: (e: SyntheticEvent, field: string, { value }: any) => void
 }
 
@@ -41,7 +45,9 @@ const PatientInfo = ({
   isIdent,
   surname,
   isError,
+  tickets,
   birthday,
+  analyzes,
   isDisInput,
   patronymic,
   omsCompany,
@@ -53,6 +59,8 @@ const PatientInfo = ({
   handleClickReset,
   handleClickCancel,
   handleChangeInputs,
+  createCardGroupTickets,
+  createCardGroupAnalyzes,
 }: PatientInfoProps): ReactElement => (
   <>
     {isFetching ? (
@@ -244,7 +252,10 @@ const PatientInfo = ({
             )}
           </div>
         </Segment>
-        <Segment />
+        <div className="patient-moreData">
+          {createCardGroupTickets(tickets)}
+          {createCardGroupAnalyzes(analyzes)}
+        </div>
       </div>
     )}
   </>

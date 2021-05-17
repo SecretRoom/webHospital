@@ -39,7 +39,9 @@ router.post(
         idCreateEmpl,
         editDateExam: '',
         idEditEmpl: '',
-        dataExam: {},
+        dataExam: {
+          tickets: []
+        },
       })
 
       const newData = await newExamination.save()

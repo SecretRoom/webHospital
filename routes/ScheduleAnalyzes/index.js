@@ -50,7 +50,7 @@ router.post(
       }
 
       const newScheduleAnalysis = new ScheduleAnalysis({
-        date,
+        date: new Date(date),
         count,
         idPat,
         idExam,
@@ -60,7 +60,7 @@ router.post(
 
       await newScheduleAnalysis.save()
 
-      res.status(200).json({ status: '0', message: 'Пациент записан на анализ' })
+      res.status(200).json({ status: '2', message: 'Пациент записан на анализ' })
     } catch (e) {
       res.status(500).json({ e, status: '1', message: 'Что-то пошло не так, попробуйте снова' })
     }
@@ -100,7 +100,7 @@ router.post(
 
 
       if (R.isNil(idPat) || R.isEmpty(idPat)) {
-        const scheduleAnalyzes = await ScheduleAnalysis.find()
+        const scheduleAnalyzes = await ScheduleAnalysis.find().sort({ date: 'asc' })
 
         return res.status(200).json({
           status: '0', items: R.map(({ _doc }) => ({
@@ -108,13 +108,13 @@ router.post(
             __v: undefined,
             fioPat: findPat(_doc.idPat).shortName,
             fioEmpl: findEmpl(_doc.idEmpl),
-            nameAnalisis: findAnalysis(_doc.idAnalysis).name,
+            nameAnalysis: findAnalysis(_doc.idAnalysis).name,
             sum: +findAnalysis(_doc.idAnalysis).price * +_doc.count,
           }), scheduleAnalyzes)
         })
       }
 
-      const scheduleAnalyzes = await ScheduleAnalysis.find({ idPat })
+      const scheduleAnalyzes = await ScheduleAnalysis.find({ idPat }).sort({ date: 'asc' })
 
       res.status(200).json({
         status: '0', items: R.map(({ _doc }) => ({
@@ -122,7 +122,7 @@ router.post(
           __v: undefined,
           fioPat: findPat(_doc.idPat).shortName,
           fioEmpl: findEmpl(_doc.idEmpl),
-          nameAnalisis: findAnalysis(_doc.idAnalysis).name,
+          nameAnalysis: findAnalysis(_doc.idAnalysis).name,
           sum: +findAnalysis(_doc.idAnalysis).price * +_doc.count,
         }), scheduleAnalyzes)
       })
@@ -131,45 +131,18 @@ router.post(
     }
   })
 
-// /examination/update
-// router.post(
-//   '/update',
-//   [
-//     check('dataExam', 'Пустые дынные').isObject().notEmpty(),
-//     check('idEditEmpl', 'Пустой сотрудник').isString().notEmpty(),
-//   ],
-//   async (req, res) => {
-//     try {
-//       const errors = validationResult(req)
+// /schedule_analyzes/remove/:id
+router.get(
+  '/remove/:id',
+  async (req, res) => {
+    try {
+      const scheduleAnalyzes = await ScheduleAnalysis.findByIdAndDelete(req.params.id)
 
-//       if (!errors.isEmpty()) {
-//         return res.status(400).json({
-//           errors: errors.array(),
-//           status: '1',
-//           message: 'Некорректные данные при обновлении осмотра',
-//         })
-//       }
-
-//       const {
-//         idExam,
-//         idEditEmpl,
-//         dataExam,
-//       } = req.body
-//       const prevDataExam = await Examination.findById(idExam)
-//       const findExam = await Examination.findByIdAndUpdate(idExam, {
-//         dataExam: R.mergeRight(
-//           prevDataExam.dataExam,
-//           dataExam,
-//         ),
-//         idEditEmpl,
-//         editDateExam: new Date(),
-//       })
-
-//       if (findExam) res.status(200).json({ status: '0', message: 'Осмотр обновлен' })
-//     } catch (e) {
-//       res.status(500).json({ e, status: '1', message: 'Что-то пошло не так, попробуйте снова' })
-//     }
-//   },
-// )
+      if (scheduleAnalyzes) res.status(200).json({ status: '2', message: 'Анализ отменен' })
+    } catch (e) {
+      res.status(500).json({ e, status: '1', message: 'Что-то пошло не так, попробуйте снова' })
+    }
+  },
+)
 
 module.exports = router

@@ -22,3 +22,8 @@ export const patientInfoS = (state: RootStateInterface): any => ({
   omsCompany: patientStateS(state).get('omsCompany'),
   patronymic: patientStateS(state).get('patronymic'),
 })
+
+export const scheduleAnalyzesS = (state: RootStateInterface): any => patientStateS(state).get('scheduleAnalyzes')
+
+export const analyzesListS = (state: RootStateInterface): any => patientStateS(state).get('analyzesList')
+

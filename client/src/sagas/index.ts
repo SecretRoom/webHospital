@@ -4,6 +4,7 @@ import authSagas from '../containers/Auth/sagas';
 import userDataSagas from '../containers/UserService/sagas';
 import patientsSagas from '../containers/Patients/sagas';
 import patientSagas from '../containers/Patient/sagas';
+import scheduleAppointmentSagas from '../containers/ScheduleAppointment/sagas';
 import examinationSagas from '../containers/Patient/Examinations/sagas';
 
 export default function* rootSagas(): any {
@@ -12,4 +13,5 @@ export default function* rootSagas(): any {
   yield spawn(userDataSagas)
   yield spawn(patientsSagas)
   yield spawn(examinationSagas)
+  yield spawn(scheduleAppointmentSagas)
 }

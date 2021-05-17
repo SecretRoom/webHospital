@@ -50,12 +50,10 @@ const PatientWorkSpaceContainer = ({
   }, [activeTab])
 
   useEffect(() => {
-    setActiveTab((sessionStorage.getItem('activeTab') || '0'))
+    setActiveTab(sessionStorage.getItem('activeTab') || '0')
     fetchPatient()
-    return (() => {
-      sessionStorage.removeItem('activeTab')
-    })
   }, [])
+
   return (
     <PatientWorkSpace
       activeTab={activeTab}

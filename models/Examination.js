@@ -7,7 +7,7 @@ const schema = new Schema({
   idCreateEmpl: { type: String, required: true },
   editDateExam: { type: Date },
   idEditEmpl: { type: String },
-  dataExam: { type: Object },
+  dataExam: { type: Object, required: true },
 })
 
 module.exports = model('Examination', schema);

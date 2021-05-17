@@ -10,6 +10,10 @@ class AnalyzesAPI extends MainAPI {
     return this.getData('/schedule_analyzes', data)
   }
 
+  removeAnalysis(id: string): Promise<Response> {
+    return this.getData(`/schedule_analyzes/remove/${id}`)
+  }
+
   addAnalysis(data: {
     idAnalysis: string,
     count: string,

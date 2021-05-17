@@ -16,6 +16,9 @@ import {
   FETCH_ANALYZES_LIST_REQUEST,
   FETCH_ANALYZES_LIST_SUCCESS,
   FETCH_ANALYZES_LIST_ERROR,
+  REMOVE_ANALYSIS_REQUEST,
+  REMOVE_ANALYSIS_SUCCESS,
+  REMOVE_ANALYSIS_ERROR,
 } from './types'
 
 export const fetchPatientA = createAsyncAction(
@@ -40,6 +43,14 @@ export const addAnalysisA = createAsyncAction(
   ADD_ANALYSIS_ERROR,
 )<
   any, undefined, Error
+>()
+
+export const removeAnalysisA = createAsyncAction(
+  REMOVE_ANALYSIS_REQUEST,
+  REMOVE_ANALYSIS_SUCCESS,
+  REMOVE_ANALYSIS_ERROR,
+)<
+  string, undefined, Error
 >()
 
 export const fetchAnalyzesScheduleA = createAsyncAction(

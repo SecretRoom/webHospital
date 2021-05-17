@@ -13,7 +13,7 @@ export const selectedExamDataS = (state: RootStateInterface): any => examination
 
 export const selectedIdExamTypeS = (state: RootStateInterface): string => examinationStateS(state).get('selectedExamData').idExamType
 
-export const dataExamS = (state: RootStateInterface): string => examinationStateS(state).get('selectedExamData').dataExam
+export const dataExamS = (state: RootStateInterface): any => examinationStateS(state).get('selectedExamData').dataExam
 
 export const fioEditEmplExamS = (state: RootStateInterface): string => examinationStateS(state).get('selectedExamData').fioEditEmpl
 

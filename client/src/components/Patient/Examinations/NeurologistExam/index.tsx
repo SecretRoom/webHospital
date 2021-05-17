@@ -15,7 +15,7 @@ import {
 import './style.sass'
 import DatePicker from 'react-datepicker'
 
-type AllergistExamProps = {
+type NeurologistExamProps = {
   anamnesis: string
   complaints: string
   conclusion: string
@@ -50,7 +50,7 @@ type AllergistExamProps = {
   handleChangeNewTicket: (e: SyntheticEvent, fieldName: string, value: any) => void
 }
 
-const AllergistExam = ({
+const NeurologistExam = ({
   staff,
   tickets,
   anamnesis,
@@ -75,10 +75,10 @@ const AllergistExam = ({
   handleCreateNewAnalysis,
   handleChangeNewAnalysis,
   handleChangeAnalysisModal,
-}: AllergistExamProps): ReactElement => {
+}: NeurologistExamProps): ReactElement => {
   return (
     <Segment
-      className="allergist-exam__content"
+      className="neurologist-exam__content"
       onMouseLeave={() => handleUpdateExam()}
     >
       <div className={R.isEmpty(anamnesis) ? 'field-empty' : 'field'}>
@@ -296,4 +296,4 @@ const AllergistExam = ({
   )
 }
 
-export default AllergistExam
+export default NeurologistExam

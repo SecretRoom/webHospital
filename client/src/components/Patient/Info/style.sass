@@ -4,6 +4,7 @@
   display: grid
   grid-gap: 10px
   margin: 5px 10px
+  height: 92vh
   grid-template-columns: max-content 1fr
   .ui.segment
     margin: 0 !important
@@ -11,11 +12,10 @@
     display: grid !important
     grid-template-rows: repeat(3,max-content)
     grid-gap: 10px
-    height: max-content
-    max-height: 100%
+    height: 100%
     border: solid 2px $second_color !important
     box-shadow: 0px 0px 4px 1px $second_color !important
-
+    overflow-y: auto
     .fields__image-input
       display: grid
       grid-template-columns: repeat(2,1fr)
@@ -108,3 +108,50 @@
         .icon
           border-radius: 5px
           margin: 0
+  .patient-moreData
+    display: grid
+    overflow-y: auto
+    grid-gap: 10px
+    height: 100%
+    grid-template-rows: repeat(2,max-content)
+    .tickets, .analyzes
+      display: grid
+      grid-gap: 10px
+      grid-template-rows: repeat(2,max-content)
+      h4
+        height: max-content
+        color: $main_dark_color
+        margin: 0 !important
+      .card-group
+        display: flex
+        grid-gap: 10px
+        height: max-content
+        overflow-x: overlay
+        &__card, &__card-act
+          width: 240px
+          height: 220px
+          grid-gap: 5px
+          display: grid
+          padding: 15px 20px
+          border-radius: 5px
+          border: 1px solid #a2a2a29a
+          .field
+            display: grid
+            width: 200px
+            grid-template-rows: repeat(2,max-content)
+            span
+              width: 200px
+              word-wrap: break-word
+              &:first-child
+                color: $main_dark_color
+                font-weight: bold
+                font-size: small
+              &:last-child
+                padding-left: 5px
+    .analyzes
+      .card-group
+        overflow-x: auto
+        &__card-act
+          height: max-content
+          .ui.button
+            padding: 5px

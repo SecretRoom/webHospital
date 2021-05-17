@@ -1,9 +1,10 @@
 import React, { ReactElement, SyntheticEvent, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
+import { useHistory } from 'react-router'
 import { Grid, Icon, Menu, Tab } from 'semantic-ui-react'
 import moment from 'moment'
-import AllergistExam from '../../../../components/Patient/Examinations/AllergistExam'
+import NeurologistExam from '../../../../components/Patient/Examinations/NeurologistExam'
 import { dataExamS, isFetchingExamS, selectedExamS } from '../selectors'
 import { updateExamA } from '../actions'
 import getStore from '../../../../services/IndexedDB/getStore'
@@ -11,7 +12,7 @@ import { idEmplS } from '../../../UserService/selectors'
 import { analyzesListS, scheduleAnalyzesS } from '../../selectors'
 import { addAnalysisA } from '../../actions'
 
-type AllergistExamContainerProps = {
+type NeurologistExamContainerProps = {
   idEmpl: string
   selectedExam: string
 
@@ -33,7 +34,7 @@ type AllergistExamContainerProps = {
   }) => any
 }
 
-const AllergistExamContainer = ({
+const NeurologistExamContainer = ({
   idEmpl,
   dataExam,
   isFetching,
@@ -43,7 +44,7 @@ const AllergistExamContainer = ({
 
   addAnalyzes,
   updateExam,
-}: AllergistExamContainerProps): ReactElement => {
+}: NeurologistExamContainerProps): ReactElement => {
   const [anamnesis, setAnamnesis] = useState<string>('')
   const [complaints, setComplaints] = useState<string>('')
   const [conclusion, setConclusion] = useState<string>('')
@@ -246,7 +247,7 @@ const AllergistExamContainer = ({
   }, [])
 
   return (
-    <AllergistExam
+    <NeurologistExam
       staff={staff}
       tickets={tickets}
       anamnesis={anamnesis}
@@ -287,4 +288,4 @@ export default connect(
     updateExam: updateExamA.request,
     addAnalyzes: addAnalysisA.request,
   },
-)(AllergistExamContainer)
+)(NeurologistExamContainer)
