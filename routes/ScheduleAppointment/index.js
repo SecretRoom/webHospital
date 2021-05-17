@@ -96,13 +96,22 @@ router.post(
         idPat: _doc.idPat,
         fioPat: findPat(_doc.idPat).fullName,
         date: moment(_doc.date).format('HH:mm'),
-      }), R.filter((item) => moment(item.date).isSameOrBefore(moment(date).add(15, 'm'), 'minute'), filterSchedule))
+      }), R.filter((item) => {
+        if (moment(new Date()).format('DD.MM.YYYY').toString() === moment(date).format('DD.MM.YYYY').toString()) {
+          return moment(item.date).isSameOrBefore(moment(date).add(15, 'm'), 'minute')
+        }
+      }, filterSchedule))
 
       const adopted = R.map(({ _doc }) => ({
         idPat: _doc.idPat,
         fioPat: findPat(_doc.idPat).fullName,
         date: moment(_doc.date).format('HH:mm'),
-      }), R.filter((item) => moment(item.date).isAfter(moment(date).add(15, 'm'), 'minute'), filterSchedule))
+      }), R.filter((item) => {
+        if (moment(new Date()).format('DD.MM.YYYY').toString() === moment(date).format('DD.MM.YYYY').toString()) {
+          return moment(item.date).isAfter(moment(date).add(15, 'm'), 'minute')
+        }
+        return item
+      }, filterSchedule))
 
       res.status(200).json({
         status: '0', items: [{

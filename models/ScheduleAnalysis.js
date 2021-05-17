@@ -5,6 +5,7 @@ const schema = new Schema({
   idExam: { type: String, required: true },
   count: { type: String, required: true },
   date: { type: Date, required: true },
+  dateCreate: { type: Date, required: true },
   idPat: { type: String, required: true },
   idEmpl: { type: String, required: true },
 })

@@ -146,7 +146,7 @@ const ScheduleAppointmentFilter = ({
           maxTime={moment().hours(23).minutes(59).toDate()}
           minDate={new Date()}
           dateFormat="dd.MM.yyyy HH:mm"
-          placeholderText="Дата анализа"
+          placeholderText="Дата приема"
           selected={newAppointment.date}
           onChange={(date: any, e: SyntheticEvent): void => handleChangeNewAppointment(e as never, 'date', date)}
         />

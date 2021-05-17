@@ -3,11 +3,12 @@ import {
   Redirect,
 } from 'react-router-dom'
 
+import TestPage from '../modules/TestPage'
 import LoginPage from '../modules/LoginPage/index.tsx'
 import PatientPage from '../modules/PatientPage/index.tsx'
+import ReportsPage from '../modules/ReportsPage/index.tsx'
 import PatientsPage from '../modules/PatientsPage/index.tsx'
 import ScheduleAppointmentPage from '../modules/ScheduleAppointmentPage/index.tsx'
-import TestPage from '../modules/TestPage'
 
 const routes = [
   {
@@ -39,7 +40,7 @@ const routes = [
   {
     title: 'Отчеты',
     path: '/reports',
-    // component: LoginPage,
+    component: ReportsPage,
     rights: {
       show: '',
       edit: '',

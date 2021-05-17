@@ -51,6 +51,7 @@ router.post(
 
       const newScheduleAnalysis = new ScheduleAnalysis({
         date: new Date(date),
+        dateCreate: new Date(),
         count,
         idPat,
         idExam,

@@ -1,5 +1,6 @@
 export * from '../containers/Auth/actions'
 export * from '../containers/Global/actions'
+export * from '../containers/Reports/actions'
 export * from '../containers/Patient/actions'
 export * from '../containers/Patients/actions'
 export * from '../containers/UserService/actions'
