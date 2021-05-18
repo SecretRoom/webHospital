@@ -1,8 +1,9 @@
+// eslint-disable-next-line no-use-before-define
 import React, { ReactElement, SyntheticEvent, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
 import { useHistory } from 'react-router'
-import { Divider, Dropdown, Icon, Menu, Segment } from 'semantic-ui-react'
+import { Dropdown, Icon, Menu, Segment } from 'semantic-ui-react'
 import PatientExaminations from '../../../components/Patient/Examinations'
 import getStore from '../../../services/IndexedDB/getStore'
 import {
@@ -270,7 +271,6 @@ const PatientExaminationsContainer = ({
     <PatientExaminations
       examList={examList}
       openPortal={openPortal}
-      isFetching={isFetching}
       createExamDataContent={createExamDataContent}
       hiddenSidebar={hiddenSidebar}
       createMenuItem={createMenuItem}

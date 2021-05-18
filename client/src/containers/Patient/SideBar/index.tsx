@@ -1,13 +1,10 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+// eslint-disable-next-line no-use-before-define
+import React, { ReactElement, useState } from 'react'
 import { connect } from 'react-redux'
-import * as R from 'ramda'
-import { useHistory } from 'react-router'
 import { NavLink } from 'react-router-dom'
-import { Header, Icon, Menu } from 'semantic-ui-react'
+import { Icon, Menu } from 'semantic-ui-react'
 import PatientSideBar from '../../../components/Patient/SideBar'
-import getStore from '../../../services/IndexedDB/getStore'
 import { idPatS } from '../selectors'
-import PatientExaminationsContainer from '../../../containers/Patient/Examinations'
 
 type PatientSideBarContainerProps = {
   idPat: string

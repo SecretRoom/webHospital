@@ -1,6 +1,5 @@
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
-import * as R from 'ramda'
 import { ActionType } from 'typesafe-actions';
 import PatientAPI from '../../services/API/Patient'
 import AnalyzesAPI from '../../services/API/Analyzes'

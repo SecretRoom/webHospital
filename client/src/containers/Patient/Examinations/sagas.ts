@@ -2,7 +2,6 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { ActionType } from 'typesafe-actions';
 import * as R from 'ramda'
-import moment from 'moment';
 import ExaminationAPI from '../../../services/API/Examination'
 import { createExamA, fetchExamListA, selectExamA, updateExamA } from './actions';
 import { idPatS } from '../selectors';

@@ -15,7 +15,18 @@ function* fetchReportsSaga(action: ActionType<typeof fetchReportA.request>): Sag
         idEmpl,
       })
       if (status !== '1') {
-        yield put(fetchReportA.success({}))
+        yield put(fetchReportA.success({
+          countAdoptedPat: items[0].countAdoptedPat,
+          countAnalyzes: items[0].countAnalyzes,
+          countCreateExam: items[0].countCreateExam,
+          countEditExam: items[0].countEditExam,
+          countTickets: items[0].countTickets,
+          adoptedPat: items[0].adoptedPat,
+          analyzes: items[0].analyzes,
+          createExam: items[0].createExam,
+          editExam: items[0].editExam,
+          tickets: items[0].tickets,
+        }))
       }
     }
   } catch (error) {

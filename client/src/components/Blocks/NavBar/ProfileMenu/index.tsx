@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-use-before-define
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Dropdown, Icon } from 'semantic-ui-react'
 

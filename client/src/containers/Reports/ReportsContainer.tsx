@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-use-before-define
 import React, { ReactElement, useEffect } from 'react'
 import { connect } from 'react-redux'
 import ReportsWorkSpace from '../../components/Reports'

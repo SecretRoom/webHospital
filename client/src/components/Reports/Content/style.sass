@@ -3,37 +3,37 @@
 .loader-reportsContent
 
 .reports-content
+  height: 84vh
   display: grid
-  grid-template-columns: 1fr 1fr
   grid-gap: 10px
-  h3
+  overflow-y: auto
+  margin: 0 !important
+  grid-template-rows: max-content 1fr
+  h2
     text-align: center
-  &__list
+    margin: 0 !important
+  &__data
     display: grid
+    grid-template-columns: max-content 1fr
     grid-gap: 10px
-    height: 78vh
-    overflow-y: auto
-    grid-template-rows: repeat(auto-fit, 80px)
-    grid-template-columns: repeat(auto-fill,minmax(300px,1fr))
-    .patient-card__segment
-      margin: 0 !important
-      height: max-content
-      .patient-card
+    .fields
+      display: grid
+      justify-content: center
+      grid-gap: 10px
+      grid-template-rows: repeat(10, max-content)
+      .field
         display: grid
-        grid-gap: 5px
-        &__header
-          color: $accent_color
-          font-weight: bold
-          font-size: 16px
-        &__content
-          display: grid
-          grid-gap: 5px
-          grid-template-columns: 1fr 1fr
-          div
-            color: $main_font !important
-            font-size: $mainSize
-          span
-            color: $main_font !important
-            font-weight: 700
-        .ui.divider
-          margin: 0
+        grid-template-columns: repeat(2,max-content )
+        grid-gap: 10px
+        align-items: center
+        h4
+          margin: 0 !important
+          color: $main_dark_color
+          height: max-content
+        span
+          height: max-content !important
+    .tab-chart
+      margin-left: 10px
+      height: max-content
+      .item
+        font-size: $mainSize

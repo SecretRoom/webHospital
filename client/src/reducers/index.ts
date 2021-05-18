@@ -13,6 +13,7 @@ import { default as examination } from '../containers/Patient/Examinations/reduc
 import { default as notification } from '../containers/Blocks/Notification/reducer'
 import { default as scheduleAppointment } from '../containers/ScheduleAppointment/reducer'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const rootReducer = (history: any): any => (state: any, action: any) => {
   const appReducer = combineReducers({
     global,

@@ -1,39 +1,68 @@
+// eslint-disable-next-line no-use-before-define
 import React, { ReactElement, SyntheticEvent } from 'react'
-import { Button, Dropdown, Icon, Input, Modal, Segment } from 'semantic-ui-react'
+import { Icon, Input, Segment } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker';
-import * as R from 'ramda'
 
 import './style.sass'
-import moment from 'moment';
 
 type ReportsFilterProps = {
   isFetching: boolean
 
+  dateTo: Date
+  dateFor: Date
+
   handleResetFilter: () => void
-  handleChangeDate: (date: Date) => void
+  handleChangeDateTo: (date: Date) => void
+  handleChangeDateFor: (date: Date) => void
 }
 
 const ReportsFilter = ({
+  dateTo,
+  dateFor,
   isFetching,
 
-  handleChangeDate,
   handleResetFilter,
+  handleChangeDateTo,
+  handleChangeDateFor,
 }: ReportsFilterProps): ReactElement => (
   <Segment
     className="reports-filter"
     onClick={(e: SyntheticEvent): void => e.preventDefault()}
   >
-    <h4>Дата приема</h4>
-    {/* <DatePicker
-        closeOnScroll
-        selected={date}
-        disabled={isFetching}
-        customInput={(
-          <Button content={moment(date).format('DD.MM.YYYY')} />
-        )}
-        dateFormat="dd.MM.yyyy"
-        onChange={(date: Date): void => handleChangeDate(date)}
-      /> */}
+    <h4>Интервал отчетности</h4>
+    <h4>от</h4>
+    <DatePicker
+      closeOnScroll
+      selected={dateTo}
+      maxDate={dateFor}
+      disabled={isFetching}
+      customInput={(
+        <Input />
+      )}
+      dateFormat="dd.MM.yyyy"
+      onChange={(date: Date): void => handleChangeDateTo(date)}
+    />
+    <h4>до</h4>
+    <DatePicker
+      closeOnScroll
+      minDate={dateTo}
+      selected={dateFor}
+      disabled={isFetching}
+      customInput={(
+        <Input />
+      )}
+      dateFormat="dd.MM.yyyy"
+      onChange={(date: Date): void => handleChangeDateFor(date)}
+    />
+    <Icon
+      link
+      color="grey"
+      size="large"
+      disabled={isFetching}
+      name="undo alternate"
+      title="Сброс фильтрации"
+      onClick={(): void => handleResetFilter()}
+    />
   </Segment>
 )
 

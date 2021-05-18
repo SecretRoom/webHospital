@@ -1,7 +1,6 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { SagaIterator } from 'redux-saga';
-import * as R from 'ramda'
 import {
   authA, logoutA,
 } from './actions';
@@ -16,7 +15,7 @@ import { NAME_INDEXED_DB } from '../../config';
 
 import AuthAPI from '../../services/API/Auth'
 
-import { getUserDataA, notification } from '../../actions';
+import { getUserDataA } from '../../actions';
 
 /**
  * Вход в приложение

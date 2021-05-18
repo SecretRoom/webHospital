@@ -1,7 +1,8 @@
+// eslint-disable-next-line no-use-before-define
 import React, { ReactElement, SyntheticEvent, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as R from 'ramda'
-import { Grid, Icon, Menu, Tab } from 'semantic-ui-react'
+import { Grid, Menu, Tab } from 'semantic-ui-react'
 import moment from 'moment'
 import AllergistExam from '../../../../components/Patient/Examinations/AllergistExam'
 import { dataExamS, isFetchingExamS, selectedExamS } from '../selectors'

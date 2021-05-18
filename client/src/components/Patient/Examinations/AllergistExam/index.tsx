@@ -1,12 +1,11 @@
-import React, { ReactElement, SyntheticEvent, useEffect, useState } from 'react'
+// eslint-disable-next-line no-use-before-define
+import React, { ReactElement, SyntheticEvent } from 'react'
 import * as R from 'ramda'
 import {
   Button,
   Dropdown,
   Grid,
-  Icon,
   Input,
-  Menu,
   Modal,
   Segment,
   Tab,

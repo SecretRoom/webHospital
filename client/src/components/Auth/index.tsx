@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-use-before-define
 import React, { ReactElement, SyntheticEvent } from 'react'
 import { Button, Checkbox, Form, Icon } from 'semantic-ui-react'
 import * as R from 'ramda'

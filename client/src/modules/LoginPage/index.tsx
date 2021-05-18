@@ -1,5 +1,5 @@
-import React, { useState, ReactElement, useEffect } from 'react'
-import { Button, Checkbox, Form, Icon } from 'semantic-ui-react'
+// eslint-disable-next-line no-use-before-define
+import React, { ReactElement } from 'react'
 import LoginContainer from '../../containers/Auth/LoginContainer'
 
 const LoginPage = (): ReactElement => {

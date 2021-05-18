@@ -51,13 +51,31 @@ router.post(
 
       R.forEach((exam) => R.forEach((ticket) => { if (ticket.idEmplRef === idEmpl) ticketsList.push(ticket) }, exam.dataExam?.tickets), examList)
 
+
+      const analyzesFilter = R.filter((item) => moment(item.dateCreate).isBetween(dateTo, dateFor, undefined, '[]'), scheduleAnalysis)
+      const adoptedPatFilter = R.filter((item) => moment(item.date).isBetween(dateTo, dateFor, undefined, '[]'), scheduleAppointment)
+      const ticketsFilter = R.filter((item) => moment(item.dateCreate).isBetween(dateTo, dateFor, undefined, '[]'), ticketsList)
+      const createExamFilter = R.filter((item) => moment(item.dateExam).isBetween(dateTo, dateFor, undefined, '[]'), examCreateList)
+      const editExamFilter = R.filter((item) => moment(item.editDateExam).isBetween(dateTo, dateFor, undefined, '[]'), examEditList)
+
+      const analyzes = R.values(R.mapObjIndexed((num, key) => ({ date: key, count: num }), R.countBy(R.toLower)(R.map((item) => moment(item.dateCreate).format('DD.MM.YYYY'), analyzesFilter))))
+      const adoptedPat = R.values(R.mapObjIndexed((num, key) => ({ date: key, count: num }), R.countBy(R.toLower)(R.map((item) => moment(item.date).format('DD.MM.YYYY'), adoptedPatFilter))))
+      const tickets = R.values(R.mapObjIndexed((num, key) => ({ date: key, count: num }), R.countBy(R.toLower)(R.map((item) => moment(item.dateCreate).format('DD.MM.YYYY'), ticketsFilter))))
+      const createExam = R.values(R.mapObjIndexed((num, key) => ({ date: key, count: num }), R.countBy(R.toLower)(R.map((item) => moment(item.dateExam).format('DD.MM.YYYY'), createExamFilter))))
+      const editExam = R.values(R.mapObjIndexed((num, key) => ({ date: key, count: num }), R.countBy(R.toLower)(R.map((item) => moment(item.editDateExam).format('DD.MM.YYYY'), editExamFilter))))
+
       res.status(200).json({
         status: '0', items: [{
-          countAnalyzes: R.filter((item) => moment(item.dateCreate).isBetween(dateTo, dateFor, undefined, '[]'), scheduleAnalysis).length,
-          countAdoptedPat: R.filter((item) => moment(item.date).isBetween(dateTo, dateFor, undefined, '[]'), scheduleAppointment).length,
-          countTickets: R.filter((item) => moment(item.dateCreate).isBetween(dateTo, dateFor, undefined, '[]'), ticketsList).length,
-          countCreateExam: R.filter((item) => moment(item.dateExam).isBetween(dateTo, dateFor, undefined, '[]'), examCreateList).length,
-          countEditExam: R.filter((item) => moment(item.editDateExam).isBetween(dateTo, dateFor, undefined, '[]'), examEditList).length,
+          countAnalyzes: analyzesFilter.length,
+          countAdoptedPat: adoptedPatFilter.length,
+          countTickets: ticketsFilter.length,
+          countCreateExam: createExamFilter.length,
+          countEditExam: editExamFilter.length,
+          analyzes,
+          adoptedPat,
+          tickets,
+          createExam,
+          editExam,
         }]
       })
     } catch (e) {

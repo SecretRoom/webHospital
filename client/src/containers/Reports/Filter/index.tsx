@@ -1,12 +1,10 @@
-import React, { ReactElement, SyntheticEvent, useEffect, useState } from 'react'
+// eslint-disable-next-line no-use-before-define
+import React, { ReactElement, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import * as R from 'ramda'
+import moment from 'moment'
 import ReportsFilter from '../../../components/Reports/Filter'
 import { fetchReportA } from '../actions'
 import { isFetchingReportsS } from '../selectors'
-import getStore from '../../../services/IndexedDB/getStore'
-import { fetchPatientsA } from '../../Patients/actions'
-import { patientsListS } from '../../Patients/selectors'
 
 type ReportsFilterContainerProps = {
   isFetching: boolean
@@ -24,24 +22,35 @@ const ReportsFilterContainer = ({
 
   fetchReport,
 }: ReportsFilterContainerProps): ReactElement => {
-  const [date, setDate] = useState<Date>(new Date())
+  const [dateTo, setDateTo] = useState<Date>(new Date())
+  const [dateFor, setDateFor] = useState<Date>(new Date())
 
-  const handleChangeDate = (date: Date): void => setDate(date)
+  const handleChangeDateTo = (date: Date): void => setDateTo(date)
+
+  const handleChangeDateFor = (date: Date): void => setDateFor(date)
 
   const handleResetFilter = (): void => {
-    handleChangeDate(new Date())
+    handleChangeDateTo(new Date())
+    handleChangeDateFor(new Date())
   }
 
   useEffect(() => {
-    // fetchReports(date)
-  }, [date])
+    fetchReport({
+      dateTo: moment(dateTo).hour(0).minute(0).second(0)
+        .toDate(),
+      dateFor: moment(dateFor).hour(23).minute(59).second(59)
+        .toDate(),
+    })
+  }, [dateTo, dateFor])
 
   return (
     <ReportsFilter
-      // date={date}
+      dateTo={dateTo}
+      dateFor={dateFor}
       isFetching={isFetching}
-      handleChangeDate={handleChangeDate}
       handleResetFilter={handleResetFilter}
+      handleChangeDateTo={handleChangeDateTo}
+      handleChangeDateFor={handleChangeDateFor}
     />
   )
 }

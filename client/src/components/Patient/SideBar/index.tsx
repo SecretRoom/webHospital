@@ -1,6 +1,6 @@
+// eslint-disable-next-line no-use-before-define
 import React, { ReactElement } from 'react'
-import { NavLink } from 'react-router-dom'
-import { Icon, Loader, Menu, Segment, Sidebar } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 
 import './style.sass'
 

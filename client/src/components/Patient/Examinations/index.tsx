@@ -1,12 +1,12 @@
+// eslint-disable-next-line no-use-before-define
 import React, { ReactElement, SyntheticEvent } from 'react'
-import { Button, Icon, Loader, Menu, Modal, Popup, Segment, Sidebar } from 'semantic-ui-react'
+import { Icon, Menu, Modal, Popup, Segment, Sidebar } from 'semantic-ui-react'
 
 import './style.sass'
 
 type PatientExaminationsProps = {
   selectedExamType: string
 
-  isFetching: boolean
   openPortal: boolean
   hiddenSidebar: boolean
 
@@ -20,7 +20,6 @@ type PatientExaminationsProps = {
 
 const PatientExaminations = ({
   examList,
-  isFetching,
   openPortal,
   hiddenSidebar,
   selectedExamType,

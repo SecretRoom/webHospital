@@ -1,18 +1,13 @@
+// eslint-disable-next-line no-use-before-define
 import React, { Suspense, useEffect } from 'react'
 import {
   Switch, useHistory,
 } from 'react-router-dom'
-import { hot, setConfig } from 'react-hot-loader'
+import { setConfig } from 'react-hot-loader'
 import { connect } from 'react-redux'
-// import PropTypes from 'prop-types'
-// import { Dimmer, Loader } from 'semantic-ui-react'
-// import { logout, getUserData, changeProfile, changeLoadIDB, getAppVersion } from '../actions'
-// import { getCurrentProfile, getF1HintStatus, getF2HintStatus } from '../reducers'
-// import { appVersion } from './Auth/selectors'
 import { Dimmer, Loader } from 'semantic-ui-react'
 import routeManager from '../routes'
 import { NOTIFICATION_DELAY } from '../config'
-// import Preloader from '../components/Common/Preloader'
 
 import Notification from './Blocks/Notification'
 
@@ -53,7 +48,6 @@ const App = ({
     if (isAuthenticated) {
       // Получение данных пользователя
       getUserData()
-      // getAppVersion()
     } else {
       history.push('/login')
     }
@@ -75,10 +69,6 @@ const App = ({
     }
   }, [isAuthenticated])
 
-  // const changeProfileHandler = profile => {
-  //   changeProfile(profile)
-  // }
-
   if (isFetchingUserData) {
     return (
       <Dimmer active inverted>
@@ -88,11 +78,6 @@ const App = ({
   }
   return (
     <>
-      {/* {isFetchingUserData && (
-        <Dimmer active>
-          <Loader size="massive" inverted content="Загрузка" />
-        </Dimmer>
-      )} */}
       {isAuthenticated && (
         <NavBar />
       )}
@@ -120,10 +105,6 @@ export default connect(
     isFetchingUserData: isFetchingS(state),
   }),
   {
-    // logout: () => dispatch(logout()),
     getUserData: getUserDataA.request,
-    // changeProfile: profile => dispatch(changeProfile(profile)),
-    // changeLoadIDB: (/* loading */) => dispatch(changeLoadIDB(true)),
-    // getAppVersion: () => dispatch(getAppVersion()),
   },
 )(App)

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-use-before-define
 import React, { useState, useEffect, ReactElement } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'

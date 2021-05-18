@@ -31,12 +31,12 @@ export const REACT_TABLE_SETTINGS = {
     fontSize: '13px',
     lineHeight: '15px',
   },
-  getTheadGroupProps: () => ({
+  getTheadGroupProps: (): any => ({
     style: {
       background: '#ffffff',
     },
   }),
-  getTheadThProps: () => ({
+  getTheadThProps: (): any => ({
     style: {
       justifyContent: 'center',
       alignItems: 'center',
@@ -44,7 +44,7 @@ export const REACT_TABLE_SETTINGS = {
       overflow: 'hidden',
     },
   }),
-  getTheadTrProps: () => ({
+  getTheadTrProps: (): any => ({
     style: {
       fontWeight: 500,
       fontSize: '13px',
@@ -56,7 +56,7 @@ export const REACT_TABLE_SETTINGS = {
       // color: '#2185d0',
     },
   }),
-  getTbodyProps: () => ({
+  getTbodyProps: (): any => ({
     style: {
       borderLeft: '1px solid rgba(0,0,0,0.05)',
       borderRight: '1px solid rgba(0,0,0,0.05)',

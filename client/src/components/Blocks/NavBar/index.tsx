@@ -1,4 +1,5 @@
-import React, { ReactElement, useEffect } from 'react'
+// eslint-disable-next-line no-use-before-define
+import React, { ReactElement } from 'react'
 import { connect } from 'react-redux'
 import { Menu, Popup } from 'semantic-ui-react'
 import ProfileMenu from './ProfileMenu/index'
